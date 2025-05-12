@@ -5,92 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HEALTH/HEALTH - Documentação médica automática em tempo real</title>
   <meta name="description" content="Plataforma clínica que documenta, interpreta e organiza sua escuta médica em tempo real.">
-  
-  <!-- Preload critical fonts -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" as="style">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@900&display=swap" as="style">
-  
-  <!-- Preload critical images -->
-  <link rel="preload" as="image" href="/images/hero-bg.webp" type="image/webp">
-  
-  <!-- Critical CSS inline -->
-  <style>
-    /* Critical path CSS */
-    :root {
-      --font-display: 'Space Grotesk', system-ui, sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --font-header: 'Outfit', system-ui, sans-serif;
-      --font-body: 'Inter', system-ui, sans-serif;
-      --color-black: #000;
-      --color-white: #fff;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
-    
-    .intro-animation {
-      position: fixed;
-      inset: 0;
-      background-color: var(--color-white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-    }
-    
-    .container {
-      width: 92%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .main-header {
-      border-bottom: 1px solid var(--color-black);
-      position: sticky;
-      top: 1.8em;
-      z-index: 40;
-      background-color: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(16px);
-      transition: all 0.3s;
-      padding: 0.8rem 0;
-    }
-    
-    .main-header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .logo {
-      font-family: var(--font-mono);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      transition: all 0.3s;
-      font-size: 1.3em;
-    }
-    
-    .hidden {
-      display: none !important;
-    }
-  </style>
-  
-  <!-- Defer non-critical CSS -->
-  <link rel="stylesheet" href="styles.min.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="styles.min.css"></noscript>
-  
-  <!-- Preconnect to Google Fonts -->
+  <meta name="keywords" content="documentação médica, prontuário eletrônico, transcrição médica, IA para médicos, SOAP, CID">
+  <meta name="generator" content="v0.dev">
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Load fonts with display=swap for better performance -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  </noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Frame borders -->
@@ -134,10 +54,7 @@
   <!-- Header -->
   <header id="main-header" class="main-header">
     <div class="container">
-      <!-- Replace the text logo with the SVG logo -->
-      <div class="logo">
-        <img src="/images/logo.svg" alt="HEALTH/HEALTH" width="200" height="40" class="logo-img">
-      </div>
+      <div class="logo">HEALTH/HEALTH</div>
 
       <nav class="desktop-nav">
         <a href="#features" class="nav-link">RECURSOS</a>
@@ -148,10 +65,9 @@
 
       <div class="header-actions">
         <button class="btn btn-primary desktop-only">SOLICITAR ACESSO</button>
-        <!-- Replace the SVG icons in the mobile menu toggle with references to the sprite -->
-        <button id="mobile-menu-toggle" class="mobile-menu-toggle mobile-only" aria-label="Menu">
-          <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-menu" id="menu-icon"></use></svg>
-          <svg class="icon hidden" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-close" id="close-icon"></use></svg>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle mobile-only">
+          <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg id="close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5L19 19M5 19L19 5"/></svg>
         </button>
       </div>
     </div>
@@ -171,12 +87,6 @@
   <main>
     <!-- Hero Section -->
     <section class="hero-section">
-      <div class="hero-bg">
-        <picture>
-          <source srcset="/images/hero-bg.webp" type="image/webp">
-          <img src="/images/hero-bg-fallback.png" alt="" role="presentation" width="1920" height="1080" loading="eager" fetchpriority="high" class="hero-bg-img">
-        </picture>
-      </div>
       <div class="container">
         <div class="domain-badge">healthhealth.io</div>
         <h1>HEALTH/HEALTH transforma a conversa clínica em prontuário completo. Automático. Imediato. Seguro.</h1>
@@ -194,7 +104,73 @@
       <div class="container">
         <h2>O QUE O HEALTH/HEALTH FAZ?</h2>
         <div class="features-grid">
-          <!-- Feature cards will be generated by JavaScript -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="2" width="4" height="12" fill="white" stroke="white" stroke-width="1" />
+                <rect x="11" y="5" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
+                <rect x="11" y="8" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
+                <rect x="11" y="11" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
+                <rect x="8" y="14" width="8" height="1" fill="white" />
+                <rect x="11.5" y="15" width="1" height="4" fill="white" />
+                <rect x="9" y="19" width="6" height="1" fill="white" />
+              </svg>
+            </div>
+            <h3>Escuta em tempo real</h3>
+            <p>Captura a consulta enquanto você conversa naturalmente com seu paciente.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="3" width="10" height="18" stroke="white" stroke-width="1" fill="none" />
+                <rect x="9" y="7" width="6" height="1" fill="white" />
+                <rect x="9" y="10" width="6" height="1" fill="white" />
+                <rect x="9" y="13" width="6" height="1" fill="white" />
+                <rect x="9" y="16" width="4" height="1" fill="white" />
+                <path d="M17 3L17 7L13 3" stroke="white" stroke-width="1" fill="none" />
+              </svg>
+            </div>
+            <h3>Gera prontuário estruturado</h3>
+            <p>Cria documentação clínica completa seguindo padrões médicos reconhecidos.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4C9 4 6 6 6 9C6 12 8 14 6 16C4 18 6 20 9 20C12 20 12 18 12 18C12 18 12 20 15 20C18 20 20 18 18 16C16 14 18 12 18 9C18 6 15 4 12 4Z" stroke="white" stroke-width="1" fill="none" />
+                <path d="M12 4C12 4 10 8 12 10C14 12 10 14 12 16C14 18 12 20 12 20" stroke="white" stroke-width="1" fill="none" />
+                <path d="M9 10C7 12 9 14 9 14" stroke="white" stroke-width="1" fill="none" />
+                <path d="M15 10C17 12 15 14 15 14" stroke="white" stroke-width="1" fill="none" />
+              </svg>
+            </div>
+            <h3>Identifica padrões clínicos</h3>
+            <p>Reconhece sintomas, diagnósticos e tratamentos relevantes durante a consulta.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 4L5 19L20 19" stroke="white" stroke-width="1" />
+                <rect x="8" y="12" width="1" height="7" fill="white" />
+                <rect x="12" y="9" width="1" height="10" fill="white" />
+                <rect x="16" y="14" width="1" height="5" fill="white" />
+                <rect x="8" y="12" width="1" height="1" fill="white" />
+                <rect x="12" y="9" width="1" height="1" fill="white" />
+                <rect x="16" y="14" width="1" height="1" fill="white" />
+              </svg>
+            </div>
+            <h3>Acompanha o paciente</h3>
+            <p>Ajuda a monitorar a evolução do paciente ao longo do tempo com histórico completo.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L5 6V12C5 16.97 8.31 21.59 12 22C15.69 21.59 19 16.97 19 12V6L12 3Z" stroke="white" stroke-width="1" fill="none" />
+                <path d="M12 6L9 9L10 10L12 8L14 10L15 9L12 6Z" fill="white" />
+                <path d="M12 12L9 15L10 16L12 14L14 16L15 15L12 12Z" fill="white" />
+              </svg>
+            </div>
+            <h3>Segurança e precisão</h3>
+            <p>Garante confidencialidade dos dados e alta precisão na documentação médica.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -211,13 +187,12 @@
               <!-- Carousel slides will be inserted here by JavaScript -->
             </div>
             
-            <!-- Replace the carousel arrow SVGs -->
             <button id="carousel-prev" class="carousel-arrow carousel-prev" aria-label="Anterior">
-              <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-left"></use></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             
             <button id="carousel-next" class="carousel-arrow carousel-next" aria-label="Próximo">
-              <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-right"></use></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
           
@@ -251,56 +226,6 @@
                   <h4>DESENVOLVEDOR FULL-STACK</h4>
                   <p>Construa interfaces intuitivas e sistemas robustos que conectam médicos a nossa tecnologia de documentação automatizada.</p>
                   <button class="btn btn-outline btn-sm">SAIBA MAIS</button>
-                </div>
-              </div>
-              <div class="team-section">
-                <h4>NOSSO TIME</h4>
-                <div class="team-grid">
-                  <div class="team-member">
-                    <picture>
-                      <source srcset="/images/team/cto.webp" type="image/webp">
-                      <img 
-                        src="/images/team/cto.webp" 
-                        alt="Dr. Carlos Mendes, CTO" 
-                        width="150" 
-                        height="150" 
-                        loading="lazy" 
-                        class="team-img"
-                      >
-                    </picture>
-                    <h5>Dr. Carlos Mendes</h5>
-                    <p>CTO & Co-fundador</p>
-                  </div>
-                  <div class="team-member">
-                    <picture>
-                      <source srcset="/images/team/developer-1.webp" type="image/webp">
-                      <img 
-                        src="/images/team/developer-1.webp" 
-                        alt="João Silva, Lead Engineer" 
-                        width="150" 
-                        height="150" 
-                        loading="lazy" 
-                        class="team-img"
-                      >
-                    </picture>
-                    <h5>João Silva</h5>
-                    <p>Lead Engineer</p>
-                  </div>
-                  <div class="team-member">
-                    <picture>
-                      <source srcset="/images/team/developer-2.webp" type="image/webp">
-                      <img 
-                        src="/images/team/developer-2.webp" 
-                        alt="Ana Oliveira, ML Engineer" 
-                        width="150" 
-                        height="150" 
-                        loading="lazy" 
-                        class="team-img"
-                      >
-                    </picture>
-                    <h5>Ana Oliveira</h5>
-                    <p>ML Engineer</p>
-                  </div>
                 </div>
               </div>
               <button class="btn btn-primary">VER TODAS AS VAGAS</button>
@@ -383,10 +308,9 @@
         <div class="cta-content">
           <h2>HEALTH/HEALTH não é uma IA de reunião. É uma extensão do seu raciocínio clínico.</h2>
           <p>Junte-se aos profissionais de saúde que estão transformando sua prática clínica com documentação automática e inteligente.</p>
-          <!-- Replace the CTA button arrow SVG -->
           <button class="btn btn-primary">
             SOLICITAR DEMONSTRAÇÃO
-            <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-right-long"></use></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
       </div>
@@ -396,10 +320,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <!-- Also replace the footer logo -->
-        <div class="footer-logo">
-          <img src="/images/logo.svg" alt="HEALTH/HEALTH" width="150" height="30" class="logo-img">
-        </div>
+        <div class="footer-logo">HEALTH/HEALTH</div>
         <div class="footer-info">
           <p>Desenvolvido por médicos para médicos.</p>
           <p>Plataforma em construção contínua.</p>
@@ -413,7 +334,6 @@
     </div>
   </footer>
 
-  <!-- Defer non-critical JavaScript -->
-  <script src="script.min.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>

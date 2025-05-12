@@ -226,7 +226,7 @@ body {
 
 /* Microsoft for Startups Sub-header */
 .ms-startups-header {
-  background-color: #f0f0f0;
+  background-color: #2F2F2F;
   padding: 0.4em 0;
   border-bottom: 1px solid var(--color-primary);
   text-align: center;
@@ -236,24 +236,40 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
+  color: white;
+}
+
+.ms-startups-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+}
+
+.ms-logo {
+  height: 1.5em;
+}
+
+.ms-text {
+  letter-spacing: 0.05em;
 }
 
 /* Header */
 .main-header {
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 1px solid rgba(10, 37, 64, 0.1);
   position: sticky;
   top: 1.8em;
   z-index: 40;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: var(--transition-standard);
   padding: 1rem 0;
 }
 
 .main-header.scrolled {
   padding: 0.6rem 0;
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 4px 20px rgba(10, 37, 64, 0.08);
 }
 
 .main-header .container {
@@ -263,10 +279,20 @@ body {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.logo-image {
+  height: 2em;
+  width: auto;
+}
+
+.logo-text {
   font-family: var(--font-mono);
   font-weight: 700;
   letter-spacing: -0.02em;
-  transition: var(--transition-standard);
   font-size: 1.3em;
   color: var(--color-primary);
 }
@@ -387,14 +413,15 @@ body {
   padding: 0.8em 1.4em;
   border: none;
   cursor: pointer;
-  transition: var(--transition-standard);
-  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 3px;
+  letter-spacing: 0.02em;
 }
 
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
-  box-shadow: 2px 2px 0px 0px var(--color-accent);
+  box-shadow: 0 2px 8px rgba(47, 109, 174, 0.25);
   position: relative;
   overflow: hidden;
 }
@@ -415,7 +442,7 @@ body {
 .btn-primary:hover {
   background-color: var(--color-secondary);
   transform: translateY(-2px);
-  box-shadow: 3px 3px 0px 0px var(--color-accent);
+  box-shadow: 0 4px 12px rgba(47, 109, 174, 0.35);
 }
 
 .btn-primary:hover::after {
@@ -424,13 +451,15 @@ body {
 }
 
 .btn-outline {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
   z-index: 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .btn-outline::before {
@@ -450,6 +479,7 @@ body {
   border-color: var(--color-secondary);
   transform: translateY(-2px);
   box-shadow: 2px 2px 0px 0px rgba(10, 37, 64, 0.2);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .btn-outline:hover::before {
@@ -474,9 +504,9 @@ body {
 /* Hero Section */
 .hero-section {
   padding: 10% 0;
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 1px solid rgba(10, 37, 64, 0.1);
   text-align: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 245, 255, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(230, 240, 255, 0.8) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -513,13 +543,13 @@ body {
   padding: 0.4em 1em;
   margin-bottom: 2em;
   font-size: 0.8em;
-  border: 1px solid var(--color-primary);
+  border: 1px solid rgba(10, 37, 64, 0.15);
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   font-family: var(--font-mono);
   font-weight: 500;
-  box-shadow: 2px 2px 0px 0px var(--color-accent-light);
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.05);
   border-radius: 2px;
   color: var(--color-primary);
   letter-spacing: 0.05em;
@@ -529,10 +559,10 @@ h1 {
   font-size: 1.8em;
   font-family: var(--font-mono);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   max-width: 90%;
   margin: 0 auto 0.6em;
-  line-height: 1.3;
+  line-height: 1.2;
   color: var(--color-primary);
 }
 
@@ -591,11 +621,12 @@ h1 {
 h2 {
   font-size: 1.6em;
   font-family: var(--font-mono);
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 2em;
   color: var(--color-primary);
   position: relative;
+  letter-spacing: -0.02em;
 }
 
 h2::after {
@@ -619,9 +650,9 @@ h2::after {
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--color-primary);
+  border: 1px solid rgba(10, 37, 64, 0.15);
   padding: 1.5em;
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.05);
   transition: var(--transition-standard);
   display: flex;
   flex-direction: column;
@@ -632,9 +663,10 @@ h2::after {
 }
 
 .feature-card:hover {
-  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.1);
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.08);
   transform: translateY(-4px);
   background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-primary);
 }
 
 .feature-icon {
@@ -678,6 +710,7 @@ h3 {
   font-weight: 600;
   margin-bottom: 0.8em;
   color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
 .feature-card p {
@@ -766,6 +799,7 @@ h3 {
   margin-bottom: 0.5em;
   font-family: var(--font-mono);
   color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
 .carousel-slide-header p {
@@ -782,17 +816,18 @@ h3 {
 }
 
 .competitor-card {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(10, 37, 64, 0.15);
   padding: 1em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.05);
   transition: var(--transition-standard);
   border-radius: 2px;
   background-color: rgba(255, 255, 255, 0.6);
 }
 
 .competitor-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.08);
   transform: translateY(-2px);
+  border-color: var(--color-primary);
 }
 
 .competitor-card.featured {
@@ -1070,6 +1105,7 @@ h3 {
   margin-bottom: 1em;
   color: var(--color-primary);
   position: relative;
+  letter-spacing: -0.02em;
 }
 
 .tab-column h3::after {
@@ -1097,12 +1133,12 @@ h3 {
 }
 
 .job-card {
-  border: 1px solid var(--color-primary);
+  border: 1px solid rgba(10, 37, 64, 0.15);
   padding: 1.5em;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.05);
   transition: var(--transition-standard);
   border-radius: 2px;
   position: relative;
@@ -1121,9 +1157,10 @@ h3 {
 }
 
 .job-card:hover {
-  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.1);
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.08);
   transform: translateY(-4px);
   background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-primary);
 }
 
 .job-card:hover::before {
@@ -1136,6 +1173,7 @@ h3 {
   font-weight: 600;
   margin-bottom: 0.8em;
   color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
 .job-card p {
@@ -1163,6 +1201,7 @@ h3 {
   margin-bottom: 1.5em;
   color: var(--color-primary);
   position: relative;
+  letter-spacing: -0.02em;
 }
 
 .tech-stack h4::after {
@@ -1182,14 +1221,14 @@ h3 {
 }
 
 .tech-item {
-  border: 1px solid var(--color-primary);
+  border: 1px solid rgba(10, 37, 64, 0.15);
   background-color: rgba(255, 255, 255, 0.8);
   padding: 0.9em;
   text-align: center;
   font-family: var(--font-mono);
   font-size: 0.8em;
   font-weight: 500;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.05);
   transition: var(--transition-standard);
   border-radius: 2px;
   position: relative;
@@ -1210,8 +1249,9 @@ h3 {
 
 .tech-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(10, 37, 64, 0.08);
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.08);
   background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-primary);
 }
 
 .tech-item:hover::after {
@@ -1280,6 +1320,7 @@ h3 {
   margin-bottom: 1.5em;
   color: var(--color-primary);
   position: relative;
+  letter-spacing: -0.02em;
 }
 
 .metrics-column h4::after {
@@ -1374,6 +1415,7 @@ h3 {
   font-size: 0.9em;
   margin-bottom: 0.8em;
   color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
 .next-round p {
@@ -1416,6 +1458,7 @@ h3 {
   color: var(--color-primary);
   position: relative;
   display: inline-block;
+  letter-spacing: -0.02em;
 }
 
 .cta-content h2::after {

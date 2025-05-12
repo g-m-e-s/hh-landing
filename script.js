@@ -103,7 +103,7 @@ function playIntroAnimation() {
       setTimeout(() => {
         // Start typing animation
         typedText.classList.add('active');
-        typeText("HH / HEALTH");
+        typeText("HEALTH / HEALTH");
 
         setTimeout(() => {
           // Complete animation and show main content

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEALTH/HEALTH - Documentação médica automática em tempo real</title>
+  <meta name="description" content="Plataforma clínica que documenta, interpreta e organiza sua escuta médica em tempo real.">
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@900&display=swap" as="style">
+  
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="/images/hero-bg.webp" type="image/webp">
+  
+  <!-- Critical CSS inline -->
+  <style>
+    /* Critical path CSS */
+    :root {
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-header: 'Outfit', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --color-black: #000;
+      --color-white: #fff;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    
+    .intro-animation {
+      position: fixed;
+      inset: 0;
+      background-color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    
+    .container {
+      width: 92%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .main-header {
+      border-bottom: 1px solid var(--color-black);
+      position: sticky;
+      top: 1.8em;
+      z-index: 40;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      transition: all 0.3s;
+      padding: 0.8rem 0;
+    }
+    
+    .main-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      transition: all 0.3s;
+      font-size: 1.3em;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+  </style>
+  
+  <!-- Defer non-critical CSS -->
+  <link rel="stylesheet" href="styles.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.min.css"></noscript>
+  
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Load fonts with display=swap for better performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  </noscript>
+</head>
+<body>
+  <!-- Frame borders -->
+  <div class="frame">
+    <div class="frame-top"></div>
+    <div class="frame-bottom"></div>
+    <div class="frame-left"></div>
+    <div class="frame-right"></div>
+  </div>
+
+  <!-- Intro Animation -->
+  <div id="intro-animation" class="intro-animation">
+    <div class="intro-animation-content">
+      <!-- Microphone with audio waves -->
+      <div class="mic-container">
+        <div class="mic">
+          <div class="mic-body">
+            <div class="mic-top"></div>
+            <div class="mic-grid">
+              <div class="mic-grid-line"></div>
+              <div class="mic-grid-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="audio-wave wave-1"></div>
+        <div class="audio-wave wave-2"></div>
+      </div>
+      <!-- Typed text -->
+      <div class="typed-text">
+        <span id="typed-content"></span>
+        <span class="cursor"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Microsoft for Startups Sub-header -->
+  <div class="ms-startups-header">
+    Microsoft for Startups Founders Hub Member
+  </div>
+
+  <!-- Header -->
+  <header id="main-header" class="main-header">
+    <div class="container">
+      <!-- Replace the text logo with the SVG logo -->
+      <div class="logo">
+        <img src="/images/logo.svg" alt="HEALTH/HEALTH" width="200" height="40" class="logo-img">
+      </div>
+
+      <nav class="desktop-nav">
+        <a href="#features" class="nav-link">RECURSOS</a>
+        <a href="#comparison" class="nav-link">COMPARAÇÃO</a>
+        <a href="#developers" class="nav-link">DESENVOLVEDORES</a>
+        <a href="#investors" class="nav-link">INVESTIDORES</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-primary desktop-only">SOLICITAR ACESSO</button>
+        <!-- Replace the SVG icons in the mobile menu toggle with references to the sprite -->
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle mobile-only" aria-label="Menu">
+          <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-menu" id="menu-icon"></use></svg>
+          <svg class="icon hidden" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-close" id="close-icon"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <nav class="mobile-nav">
+        <a href="#features" class="mobile-nav-link">RECURSOS</a>
+        <a href="#comparison" class="mobile-nav-link">COMPARAÇÃO</a>
+        <a href="#developers" class="mobile-nav-link">DESENVOLVEDORES</a>
+        <a href="#investors" class="mobile-nav-link">INVESTIDORES</a>
+        <button class="btn btn-primary mobile-cta">SOLICITAR ACESSO</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-bg">
+        <picture>
+          <source srcset="/images/hero-bg.webp" type="image/webp">
+          <img src="/images/hero-bg-fallback.png" alt="" role="presentation" width="1920" height="1080" loading="eager" fetchpriority="high" class="hero-bg-img">
+        </picture>
+      </div>
+      <div class="container">
+        <div class="domain-badge">healthhealth.io</div>
+        <h1>HEALTH/HEALTH transforma a conversa clínica em prontuário completo. Automático. Imediato. Seguro.</h1>
+        <p class="hero-subtitle">Sem digitação. Sem formulário. Sem perda de tempo.</p>
+        <p class="hero-description">Você fala com seu paciente — a plataforma escuta, analisa e gera a documentação clínica por você.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary">SOLICITAR DEMONSTRAÇÃO</button>
+          <button class="btn btn-outline">SAIBA MAIS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Functionality Section -->
+    <section id="features" class="features-section">
+      <div class="container">
+        <h2>O QUE O HEALTH/HEALTH FAZ?</h2>
+        <div class="features-grid">
+          <!-- Feature cards will be generated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Carousel Section -->
+    <section id="comparison" class="comparison-section">
+      <div class="container">
+        <h2>HEALTH/HEALTH vs. CONCORRENTES</h2>
+        <p class="section-description">Veja como o HEALTH/HEALTH se compara com outras soluções de documentação disponíveis no mercado.</p>
+
+        <div class="comparison-carousel">
+          <div class="carousel-container">
+            <div id="carousel-track" class="carousel-track">
+              <!-- Carousel slides will be inserted here by JavaScript -->
+            </div>
+            
+            <!-- Replace the carousel arrow SVGs -->
+            <button id="carousel-prev" class="carousel-arrow carousel-prev" aria-label="Anterior">
+              <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-left"></use></svg>
+            </button>
+            
+            <button id="carousel-next" class="carousel-arrow carousel-next" aria-label="Próximo">
+              <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-right"></use></svg>
+            </button>
+          </div>
+          
+          <div id="carousel-indicators" class="carousel-indicators">
+            <!-- Indicators will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections for Developers and Investors -->
+    <section class="tabs-section">
+      <div class="container">
+        <div class="tabs">
+          <button id="tab-developers" class="tab-button active" data-tab="developers">PARA DESENVOLVEDORES</button>
+          <button id="tab-investors" class="tab-button" data-tab="investors">PARA INVESTIDORES</button>
+        </div>
+
+        <div id="tab-content-developers" class="tab-content active">
+          <div class="tab-grid">
+            <div class="tab-column">
+              <h3>JUNTE-SE AO NOSSO TIME</h3>
+              <p>Estamos construindo a próxima geração de ferramentas para profissionais de saúde e precisamos de talentos excepcionais para nos ajudar a transformar a documentação médica.</p>
+              <div class="job-cards">
+                <div class="job-card">
+                  <h4>ENGENHEIRO DE ML/IA</h4>
+                  <p>Trabalhe com modelos de linguagem avançados e processamento de áudio para melhorar nossa tecnologia de transcrição e análise médica.</p>
+                  <button class="btn btn-outline btn-sm">SAIBA MAIS</button>
+                </div>
+                <div class="job-card">
+                  <h4>DESENVOLVEDOR FULL-STACK</h4>
+                  <p>Construa interfaces intuitivas e sistemas robustos que conectam médicos a nossa tecnologia de documentação automatizada.</p>
+                  <button class="btn btn-outline btn-sm">SAIBA MAIS</button>
+                </div>
+              </div>
+              <div class="team-section">
+                <h4>NOSSO TIME</h4>
+                <div class="team-grid">
+                  <div class="team-member">
+                    <picture>
+                      <source srcset="/images/team/cto.webp" type="image/webp">
+                      <img 
+                        src="/images/team/cto.webp" 
+                        alt="Dr. Carlos Mendes, CTO" 
+                        width="150" 
+                        height="150" 
+                        loading="lazy" 
+                        class="team-img"
+                      >
+                    </picture>
+                    <h5>Dr. Carlos Mendes</h5>
+                    <p>CTO & Co-fundador</p>
+                  </div>
+                  <div class="team-member">
+                    <picture>
+                      <source srcset="/images/team/developer-1.webp" type="image/webp">
+                      <img 
+                        src="/images/team/developer-1.webp" 
+                        alt="João Silva, Lead Engineer" 
+                        width="150" 
+                        height="150" 
+                        loading="lazy" 
+                        class="team-img"
+                      >
+                    </picture>
+                    <h5>João Silva</h5>
+                    <p>Lead Engineer</p>
+                  </div>
+                  <div class="team-member">
+                    <picture>
+                      <source srcset="/images/team/developer-2.webp" type="image/webp">
+                      <img 
+                        src="/images/team/developer-2.webp" 
+                        alt="Ana Oliveira, ML Engineer" 
+                        width="150" 
+                        height="150" 
+                        loading="lazy" 
+                        class="team-img"
+                      >
+                    </picture>
+                    <h5>Ana Oliveira</h5>
+                    <p>ML Engineer</p>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary">VER TODAS AS VAGAS</button>
+            </div>
+            <div class="tab-column tech-stack">
+              <h4>NOSSO STACK TECNOLÓGICO</h4>
+              <div class="tech-grid">
+                <div class="tech-item">Python</div>
+                <div class="tech-item">TypeScript</div>
+                <div class="tech-item">React</div>
+                <div class="tech-item">Next.js</div>
+                <div class="tech-item">PyTorch</div>
+                <div class="tech-item">TensorFlow</div>
+                <div class="tech-item">AWS</div>
+                <div class="tech-item">Azure</div>
+              </div>
+              <p>Trabalhamos com tecnologias de ponta para criar soluções inovadoras que transformam a prática médica. Nossa equipe é remota e distribuída globalmente.</p>
+              <button class="btn btn-primary full-width">ENVIAR CURRÍCULO</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-content-investors" class="tab-content">
+          <div class="tab-grid">
+            <div class="tab-column">
+              <h3>OPORTUNIDADE DE INVESTIMENTO</h3>
+              <p>HEALTH/HEALTH representa uma solução inovadora para um problema crítico no setor de saúde: a documentação médica eficiente e precisa.</p>
+              <ul class="investment-points">
+                <li>Mercado potencial de US$ 15 bilhões globalmente</li>
+                <li>Tecnologia proprietária com múltiplas patentes pendentes</li>
+                <li>Modelo de negócio SaaS com alta retenção de clientes</li>
+                <li>Equipe fundadora com experiência médica e tecnológica</li>
+              </ul>
+              <button class="btn btn-primary">DECK PARA INVESTIDORES</button>
+            </div>
+            <div class="tab-column metrics-column">
+              <h4>MÉTRICAS-CHAVE</h4>
+              <div class="metrics">
+                <div class="metric">
+                  <div class="metric-header">
+                    <span class="metric-label">CRESCIMENTO MoM</span>
+                    <span class="metric-value">22%</span>
+                  </div>
+                  <div class="metric-bar">
+                    <div class="metric-progress" style="width: 22%"></div>
+                  </div>
+                </div>
+                <div class="metric">
+                  <div class="metric-header">
+                    <span class="metric-label">RETENÇÃO</span>
+                    <span class="metric-value">94%</span>
+                  </div>
+                  <div class="metric-bar">
+                    <div class="metric-progress" style="width: 94%"></div>
+                  </div>
+                </div>
+                <div class="metric">
+                  <div class="metric-header">
+                    <span class="metric-label">NPS</span>
+                    <span class="metric-value">87</span>
+                  </div>
+                  <div class="metric-bar">
+                    <div class="metric-progress" style="width: 87%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="next-round">
+                <h5>PRÓXIMA RODADA</h5>
+                <p>Estamos levantando uma rodada Seed de US$ 2M para expandir nossa equipe de desenvolvimento e iniciar operações em novos mercados.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>HEALTH/HEALTH não é uma IA de reunião. É uma extensão do seu raciocínio clínico.</h2>
+          <p>Junte-se aos profissionais de saúde que estão transformando sua prática clínica com documentação automática e inteligente.</p>
+          <!-- Replace the CTA button arrow SVG -->
+          <button class="btn btn-primary">
+            SOLICITAR DEMONSTRAÇÃO
+            <svg class="icon" aria-hidden="true"><use href="/images/icon-sprite.svg#icon-arrow-right-long"></use></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <!-- Also replace the footer logo -->
+        <div class="footer-logo">
+          <img src="/images/logo.svg" alt="HEALTH/HEALTH" width="150" height="30" class="logo-img">
+        </div>
+        <div class="footer-info">
+          <p>Desenvolvido por médicos para médicos.</p>
+          <p>Plataforma em construção contínua.</p>
+          <p class="footer-domain">healthhealth.io — uma ferramenta IREAJE.CLOUD</p>
+        </div>
+        <div class="footer-links">
+          <button class="btn btn-outline btn-sm">POLÍTICA DE PRIVACIDADE</button>
+          <button class="btn btn-outline btn-sm">TERMOS DE USO</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Defer non-critical JavaScript -->
+  <script src="script.min.js" defer></script>
+</body>
+</html>

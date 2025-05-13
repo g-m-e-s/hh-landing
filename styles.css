@@ -431,69 +431,27 @@ p {
   font-size: 0.875rem;
 }
 
-.partner-badge {
-  position: relative;
-  font-family: var(--font-inter);
-  font-weight: 500;
-  color: var(--color-primary);
-  padding-right: 1rem;
-}
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-actions, .ms-badge-content {
+    display: none;
+  }
 
-.partner-badge::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  background-color: var(--color-accent);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
+  .logo-text {
+    font-size: 1rem;
+  }
 
-.ms-logo {
-  height: 1.25rem;
-  width: auto;
-  transition: transform 0.3s ease;
-}
+  .logo-image {
+    height: 2rem;
+  }
 
-.ms-badge-content:hover .ms-logo {
-  transform: scale(1.05);
-}
+  .header {
+    box-shadow: var(--shadow-md);
+  }
 
-.ms-text {
-  font-family: var(--font-inter);
-  font-weight: 500;
-  color: var(--color-secondary);
-  position: relative;
-}
-
-.ms-text::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--color-accent);
-  transition: width 0.3s ease;
-}
-
-.ms-badge-content:hover .ms-text::after {
-  width: 100%;
-}
-
-/* Header States */
-.header.shrink {
-  box-shadow: var(--shadow-md);
-}
-
-.header.shrink .header-wrapper {
-  padding: 0.5rem 0;
-}
-
-.header.shrink .logo-image {
-  height: 2rem;
+  .header-wrapper {
+    padding: 0.5rem 0;
+  }
 }
 
 /* Hero Section */

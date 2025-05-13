@@ -8,36 +8,27 @@
   <meta name="keywords" content="documentação médica, prontuário eletrônico, transcrição médica, IA para médicos, SOAP, CID">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Frame borders -->
-  <div class="frame">
-    <div class="frame-top"></div>
-    <div class="frame-bottom"></div>
-    <div class="frame-left"></div>
-    <div class="frame-right"></div>
-  </div>
-
   <!-- Intro Animation -->
   <div id="intro-animation" class="intro-animation">
     <div class="intro-animation-content">
-      <!-- Microphone with audio waves -->
       <div class="mic-container">
-        <div class="mic">
-          <div class="mic-body">
-            <div class="mic-top"></div>
-            <div class="mic-grid">
-              <div class="mic-grid-line"></div>
-              <div class="mic-grid-line"></div>
-            </div>
-          </div>
+        <div class="mic-pulse"></div>
+        <div class="mic-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4.35 9.65V11.35C4.35 15.57 7.78 19 12 19C16.22 19 19.65 15.57 19.65 11.35V9.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 19V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 22H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
         <div class="audio-wave wave-1"></div>
         <div class="audio-wave wave-2"></div>
+        <div class="audio-wave wave-3"></div>
       </div>
-      <!-- Typed text -->
       <div class="typed-text">
         <span id="typed-content"></span>
         <span class="cursor"></span>
@@ -45,25 +36,27 @@
     </div>
   </div>
 
-  <!-- Header refinado, fixo, discreto, com badge Microsoft e linha divisória -->
-  <header class="main-header refined-fixed-header">
-    <div class="container refined-header-flex">
-      <div class="logo refined-logo">
-        <img src="public/images/logo-hh.png" alt="HEALTH/HEALTH" class="logo-image refined-logo-image">
-        <span class="logo-text refined-logo-text">HEALTH/HEALTH</span>
-      </div>
-      <div class="header-actions refined-header-actions">
-        <button class="btn btn-primary desktop-only refined-contact-btn">ENTRE EM CONTATO</button>
-        <button class="btn btn-icon mobile-only refined-contact-icon" aria-label="Contato por email">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
-        </button>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="logo">
+          <img src="public/images/logo-hh.png" alt="HEALTH/HEALTH" class="logo-image">
+          <span class="logo-text">HEALTH/HEALTH</span>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary">ENTRE EM CONTATO</button>
+        </div>
       </div>
     </div>
-    <div class="refined-header-divider"></div>
-    <div class="container refined-ms-badge-content">
-      <span class="proud-member">Partner of Excellence</span>
-      <img src="public/images/logo-microsoft.png" alt="Microsoft for Startups Founders Hub" class="ms-logo refined-ms-logo">
-      <span class="ms-text refined-ms-text">Microsoft for Startups Founders Hub</span>
+    <div class="ms-badge">
+      <div class="container">
+        <div class="ms-badge-content">
+          <span class="partner-badge">Partner of Excellence</span>
+          <img src="public/images/logo-microsoft.png" alt="Microsoft for Startups Founders Hub" class="ms-logo">
+          <span class="ms-text">Microsoft for Startups Founders Hub</span>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -71,32 +64,29 @@
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="container">
-        <div class="domain-badge">healthhealth.io</div>
-        <h1>Documentação clínica dimensional em tempo real a partir da conversa médico-paciente</h1>
-        <p class="hero-subtitle">Substitua diagnósticos por vetores. Mapeie estados mentais em dimensões precisas.</p>
-        <p class="hero-description">Enquanto você conversa com seu paciente, HEALTH/HEALTH captura, analisa e mapeia dimensionalmente o estado clínico, gerando documentação estruturada e visualizações vetoriais.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary">SOLICITAR ACESSO</button>
-          <button class="btn btn-outline">VER DEMONSTRAÇÃO</button>
+        <div class="hero-content">
+          <div class="domain-badge">healthhealth.io</div>
+          <h1>Documentação clínica dimensional em tempo real</h1>
+          <p class="hero-subtitle">Substitua diagnósticos por vetores. Mapeie estados mentais em dimensões precisas.</p>
+          <p class="hero-description">Enquanto você conversa com seu paciente, HEALTH/HEALTH captura, analisa e mapeia dimensionalmente o estado clínico, gerando documentação estruturada e visualizações vetoriais.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary">SOLICITAR ACESSO</button>
+            <button class="btn btn-outline">VER DEMONSTRAÇÃO</button>
+          </div>
         </div>
       </div>
+      <div class="hero-backdrop"></div>
     </section>
 
-    <!-- Core Functionality Section -->
+    <!-- Features Section -->
     <section id="features" class="features-section">
       <div class="container">
-        <h2>O QUE O HEALTH/HEALTH FAZ?</h2>
+        <h2 class="section-title">O QUE O HEALTH/HEALTH FAZ?</h2>
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">
-              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="2" width="4" height="12" fill="white" stroke="white" stroke-width="1" />
-                <rect x="11" y="5" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
-                <rect x="11" y="8" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
-                <rect x="11" y="11" width="2" height="1" fill="white" stroke="white" stroke-width="0.5" />
-                <rect x="8" y="14" width="8" height="1" fill="white" />
-                <rect x="11.5" y="15" width="1" height="4" fill="white" />
-                <rect x="9" y="19" width="6" height="1" fill="white" />
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2V8M12 16V22M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3>Captura dimensional da consulta</h3>
@@ -104,13 +94,9 @@
           </div>
           <div class="feature-card">
             <div class="feature-icon">
-              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="7" y="3" width="10" height="18" stroke="white" stroke-width="1" fill="none" />
-                <rect x="9" y="7" width="6" height="1" fill="white" />
-                <rect x="9" y="10" width="6" height="1" fill="white" />
-                <rect x="9" y="13" width="6" height="1" fill="white" />
-                <rect x="9" y="16" width="4" height="1" fill="white" />
-                <path d="M17 3L17 7L13 3" stroke="white" stroke-width="1" fill="none" />
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3V21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 14L11 10L15 14L21 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3>Substituição do modelo categorial</h3>
@@ -118,11 +104,9 @@
           </div>
           <div class="feature-card">
             <div class="feature-icon">
-              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 4C9 4 6 6 6 9C6 12 8 14 6 16C4 18 6 20 9 20C12 20 12 18 12 18C12 18 12 20 15 20C18 20 20 18 18 16C16 14 18 12 18 9C18 6 15 4 12 4Z" stroke="white" stroke-width="1" fill="none" />
-                <path d="M12 4C12 4 10 8 12 10C14 12 10 14 12 16C14 18 12 20 12 20" stroke="white" stroke-width="1" fill="none" />
-                <path d="M9 10C7 12 9 14 9 14" stroke="white" stroke-width="1" fill="none" />
-                <path d="M15 10C17 12 15 14 15 14" stroke="white" stroke-width="1" fill="none" />
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 8V16M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3>Visualização trajetorial</h3>
@@ -130,14 +114,10 @@
           </div>
           <div class="feature-card">
             <div class="feature-icon">
-              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 4L5 19L20 19" stroke="white" stroke-width="1" />
-                <rect x="8" y="12" width="1" height="7" fill="white" />
-                <rect x="12" y="9" width="1" height="10" fill="white" />
-                <rect x="16" y="14" width="1" height="5" fill="white" />
-                <rect x="8" y="12" width="1" height="1" fill="white" />
-                <rect x="12" y="9" width="1" height="1" fill="white" />
-                <rect x="16" y="14" width="1" height="1" fill="white" />
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3>Documentação SOAP-VINTRA</h3>
@@ -145,10 +125,10 @@
           </div>
           <div class="feature-card">
             <div class="feature-icon">
-              <svg class="brutalist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3L5 6V12C5 16.97 8.31 21.59 12 22C15.69 21.59 19 16.97 19 12V6L12 3Z" stroke="white" stroke-width="1" fill="none" />
-                <path d="M12 6L9 9L10 10L12 8L14 10L15 9L12 6Z" fill="white" />
-                <path d="M12 12L9 15L10 16L12 14L14 16L15 15L12 12Z" fill="white" />
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 17H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h3>Intervenção dimensional</h3>
@@ -158,10 +138,10 @@
       </div>
     </section>
 
-    <!-- Comparison Carousel Section -->
+    <!-- Comparison Section -->
     <section id="comparison" class="comparison-section">
       <div class="container">
-        <h2>HEALTH/HEALTH vs. CONCORRENTES</h2>
+        <h2 class="section-title">HEALTH/HEALTH vs. CONCORRENTES</h2>
         <p class="section-description">Veja como o HEALTH/HEALTH se compara com outras soluções de documentação disponíveis no mercado. Nossa plataforma foi projetada especificamente para o contexto clínico, entregando resultados superiores em aspectos essenciais.</p>
 
         <div class="comparison-carousel">
@@ -186,7 +166,7 @@
       </div>
     </section>
 
-    <!-- Sections for Developers and Investors -->
+    <!-- Tabs Section -->
     <section class="tabs-section">
       <div class="container">
         <div class="tabs">

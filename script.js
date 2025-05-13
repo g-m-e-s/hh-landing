@@ -1,500 +1,609 @@
-// DOM Elements
-const introAnimation = document.getElementById('intro-animation');
-const micContainer = document.querySelector('.mic-container');
-const audioWaves = document.querySelectorAll('.audio-wave');
-const typedText = document.querySelector('.typed-text');
-const typedContent = document.getElementById('typed-content');
-const cursor = document.querySelector('.cursor');
-const header = document.querySelector('.header');
-const carouselTrack = document.getElementById('carousel-track');
-const carouselPrev = document.getElementById('carousel-prev');
-const carouselNext = document.getElementById('carousel-next');
-const carouselIndicators = document.getElementById('carousel-indicators');
-const tabButtons = document.querySelectorAll('.tab-button');
-const tabContents = document.querySelectorAll('.tab-content');
-const metricBars = document.querySelectorAll('.metric-progress');
+// script.js
+// HEALTH/HEALTH - Premium Release JavaScript
 
-// Comparison data for carousel
-const comparisonData = [
-  {
-    feature: "Documentação clínica dimensional",
-    description: "Documentação baseada em vetores dimensionais quantificando precisamente estados mentais em múltiplos eixos, substituindo a abordagem categorial tradicional.",
-    competitors: [
-      { name: "HEALTH/HEALTH", value: "true", note: "Mapeamento vetorial completo em 10 dimensões com visualização trajetorial" },
-      { name: "Dragon Medical", value: "false", note: "Transcrição apenas, sem estruturação dimensional" },
-      { name: "Google Meet", value: "false", note: "Transcrição básica sem contexto clínico" },
-    ],
-  },
-  {
-    feature: "Análise linguística fenomenológica",
-    description: "Captura e análise de padrões linguísticos, marcadores prosódicos e temporais que revelam o estado mental subjacente do paciente.",
-    competitors: [
-      { name: "HEALTH/HEALTH", value: "true", note: "Análise sintática, semântica e pragmática com extração de biomarcadores linguísticos" },
-      { name: "Dragon Medical", value: "parcial", note: "Reconhecimento de termos médicos sem análise fenomenológica" },
-      { name: "Google Meet", value: "false", note: "Sem capacidade de interpretação contextual clínica" },
-    ],
-  },
-  {
-    feature: "Visualização trajetorial",
-    description: "Representação gráfica da evolução do paciente ao longo do tempo, identificando padrões, pontos críticos e trajetórias terapêuticas.",
-    competitors: [
-      { name: "HEALTH/HEALTH", value: "true", note: "Visualização 3D com análise de sistemas e identificação de atratores" },
-      { name: "Dragon Medical", value: "false", note: "Sem visualização dimensional ou capacidade trajetorial" },
-      { name: "Google Meet", value: "false", note: "Sem capacidade de análise longitudinal" },
-    ],
-  },
-  {
-    feature: "Intervenção baseada em vetores",
-    description: "Planejamento terapêutico orientado por alvos dimensionais específicos, com monitoramento contínuo e adaptação da trajetória.",
-    competitors: [
-      { name: "HEALTH/HEALTH", value: "true", note: "Sequenciamento de intervenções com predição de trajetórias" },
-      { name: "Dragon Medical", value: "false", note: "Apenas documentação sem recursos de intervenção" },
-      { name: "Google Meet", value: "false", note: "Sem capacidade de intervenção clínica" },
-    ],
-  },
-  {
-    feature: "Documentação SOAP adaptada",
-    description: "Versão dimensional do formato SOAP tradicional, enriquecida com análise vetorial e posicionamento quantificado nas dimensões fundamentais.",
-    competitors: [
-      { name: "HEALTH/HEALTH", value: "true", note: "SOAP-VINTRA com narrativa ipsissima e posicionamento dimensional" },
-      { name: "Dragon Medical", value: "parcial", note: "SOAP tradicional com campos predefinidos" },
-      { name: "Google Meet", value: "false", note: "Sem estruturação SOAP ou clínica" },
-    ],
-  },
-];
+/* -----------------------------------------------------------------------------
+TABLE OF CONTENTS:
+--------------------------------------------------------------------------------
+1.  DOM Element Selectors
+2.  Global State & Configuration
+3.  Utility Functions
+4.  Initialization Function (DOMContentLoaded)
+5.  Header Logic
+    - Shrink on Scroll
+    - Mobile Navigation Toggle
+6.  Intro Animation Logic
+    - Typewriter Effect
+    - Animation Sequence
+7.  Smooth Scrolling & Active Navigation Highlighting
+8.  Intersection Observer for Animations
+    - Feature Cards (and similar elements)
+    - Metric Bars Animation
+9.  Carousel Logic (Comparison Section)
+    - Slide Creation & Management
+    - Navigation (Prev/Next, Indicators)
+    - Autoplay
+10. Tabs Logic (Opportunities Section)
+11. Footer Logic
+    - Current Year
+12. Hero Background Animation (Placeholder/Initialization)
+----------------------------------------------------------------------------- */
 
-// Global variables
-let currentSlide = 0;
-let isAnimating = false;
-
-// Intro Animation Sequence
-function playIntroAnimation() {
-  // Prevent scrolling during animation
-  document.body.style.overflow = 'hidden';
-
-  // Start animation sequence
-  setTimeout(() => {
-    // Show microphone
-    micContainer.classList.add('active');
-
-    setTimeout(() => {
-      // Show audio waves
-      audioWaves.forEach((wave, index) => {
-        setTimeout(() => {
-          wave.classList.add('active');
-        }, index * 200);
-      });
-
-      setTimeout(() => {
-        // Start typing animation
-        typedText.classList.add('active');
-        typeText("HEALTH / HEALTH");
-
-        setTimeout(() => {
-          // Complete animation and show main content
-          completeIntroAnimation();
-        }, 2500);
-      }, 1500);
-    }, 800);
-  }, 500);
-}
-
-// Type text character by character with improved timing
-function typeText(text) {
-  let i = 0;
-  typedContent.textContent = '';
-  
-  // Variable timing makes typing feel more natural
-  const getTypeDelay = () => {
-    // Add slight randomness to typing speed
-    const baseDelay = 80;
-    const variance = 30;
-    return baseDelay + Math.floor(Math.random() * variance);
-  };
-  
-  // Special delay for spacing
-  const getCharDelay = (char) => {
-    if (char === ' ' || char === '/') return 180; // Pause slightly on spaces and slashes
-    return getTypeDelay();
-  };
-  
-  const typeNextChar = () => {
-    if (i < text.length) {
-      const char = text.charAt(i);
-      typedContent.textContent += char;
-      i++;
-      setTimeout(typeNextChar, getCharDelay(char));
-    }
-  };
-  
-  typeNextChar();
-}
-
-// Complete intro animation and show main content
-function completeIntroAnimation() {
-  setTimeout(() => {
-    introAnimation.style.opacity = '0';
-    introAnimation.style.transition = 'opacity 0.8s ease';
-
-    setTimeout(() => {
-      introAnimation.style.display = 'none';
-      document.body.style.overflow = '';
-      initElements();
-    }, 800);
-  }, 800);
-}
-
-// Initialize all elements that need animation or interaction
-function initElements() {
-  // Animate metric bars when they come into view
-  animateMetricBars();
-  
-  // Initialize other interactive elements
-  initCarousel();
-  initTabs();
-  initScrollEffects();
-  initFeatureCards();
-}
-
-// Animate metric bars with enhanced animations
-function animateMetricBars() {
-  // First reset all bars to zero width
-  metricBars.forEach(bar => {
-    bar.style.width = '0%';
-    bar.style.transition = 'none';
-  });
-  
-  // Force reflow to ensure reset takes effect
-  void document.body.offsetHeight;
-  
-  setTimeout(() => {
-    metricBars.forEach((bar, index) => {
-      // Set transition back on with staggered delays
-      bar.style.transition = `width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)`;
-      
-      // Staggered animation starting points
-      setTimeout(() => {
-        // Add shimmer effect as the bar fills
-        bar.classList.add('animated');
-        
-        // Set the correct width based on the metric value
-        const metricValue = bar.closest('.metric').querySelector('.metric-value');
-        const targetValue = parseInt(metricValue.textContent);
-        
-        if (index === 0) bar.style.width = '22%';
-        if (index === 1) bar.style.width = '94%';
-        if (index === 2) bar.style.width = '87%';
-        
-        // Update the value counter alongside the bar
-        animateCounter(metricValue, 0, targetValue, 1500);
-      }, index * 300);
-    });
-  }, 300);
-}
-
-// Animate counter from start to end value
-function animateCounter(element, start, end, duration) {
-  // Check if we're animating value with % or not
-  const isPercentage = element.textContent.indexOf('%') !== -1;
-  let startTimestamp = null;
-  
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    const easedProgress = easeOutQuart(progress);
-    const value = Math.floor(easedProgress * (end - start) + start);
-    element.textContent = isPercentage ? `${value}%` : value.toString();
+document.addEventListener('DOMContentLoaded', function() {
     
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  
-  window.requestAnimationFrame(step);
-}
-
-// Easing function for smoother animations
-function easeOutQuart(x) {
-  return 1 - Math.pow(1 - x, 4);
-}
-
-// Handle scroll effects
-function initScrollEffects() {
-  window.addEventListener('scroll', () => {
-    // Header shrink effect
-    if (window.scrollY > 50) {
-      header.classList.add('shrink');
-    } else {
-      header.classList.remove('shrink');
-    }
+    // -----------------------------------------------------
+    // 1. DOM Element Selectors
+    // -----------------------------------------------------
+    const header = document.querySelector('.header');
+    const nav = document.querySelector('.navigation'); // For mobile menu
+    const mobileNavToggle = document.createElement('button'); // Create mobile toggle
     
-    // Check if metrics are in view to animate them
-    const metricsColumn = document.querySelector('.metrics-column');
-    if (metricsColumn) {
-      const rect = metricsColumn.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
-        animateMetricBars();
-      }
-    }
-  });
-}
-
-// Initialize feature cards with staggered animations
-function initFeatureCards() {
-  const featureCards = document.querySelectorAll('.feature-card');
-  
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.2
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, index * 150);
-        
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-  
-  featureCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-  });
-}
-
-// Initialize carousel
-function initCarousel() {
-  // Create slides
-  createCarouselSlides();
-  
-  // Create indicators
-  createCarouselIndicators();
-  
-  // Set initial slide
-  updateCarousel();
-  
-  // Add event listeners
-  carouselPrev.addEventListener('click', goToPrevSlide);
-  carouselNext.addEventListener('click', goToNextSlide);
-  
-  // Auto advance carousel
-  startCarouselAutoPlay();
-}
-
-// Create carousel slides from data
-function createCarouselSlides() {
-  carouselTrack.innerHTML = '';
-  
-  comparisonData.forEach((data, index) => {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-slide';
-    slide.setAttribute('data-index', index);
+    const introAnimationElement = document.getElementById('intro-animation');
+    const micContainer = document.querySelector('.mic-container');
+    const audioWaves = document.querySelectorAll('.audio-wave');
+    const typedTextElement = document.querySelector('.typed-text'); // Container for typed content
+    const typedContentSpan = document.getElementById('typed-content'); // Span where text is typed
     
-    const slideHeader = document.createElement('div');
-    slideHeader.className = 'carousel-slide-header';
+    const carouselTrack = document.getElementById('carousel-track');
+    const carouselPrevBtn = document.getElementById('carousel-prev');
+    const carouselNextBtn = document.getElementById('carousel-next');
+    const carouselIndicatorsContainer = document.getElementById('carousel-indicators');
     
-    const slideTitle = document.createElement('h3');
-    slideTitle.textContent = data.feature;
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
     
-    const slideDescription = document.createElement('p');
-    slideDescription.textContent = data.description;
-    
-    slideHeader.appendChild(slideTitle);
-    slideHeader.appendChild(slideDescription);
-    
-    const competitorsGrid = document.createElement('div');
-    competitorsGrid.className = 'competitors-grid';
-    
-    data.competitors.forEach(competitor => {
-      const competitorCard = document.createElement('div');
-      competitorCard.className = 'competitor-card';
-      if (competitor.name === 'HEALTH/HEALTH') {
-        competitorCard.classList.add('featured');
-      }
-      
-      const competitorHeader = document.createElement('div');
-      competitorHeader.className = 'competitor-header';
-      
-      const competitorLogo = document.createElement('div');
-      competitorLogo.className = 'competitor-logo';
-      
-      const logoBox = document.createElement('div');
-      logoBox.className = 'competitor-logo-box';
-      
-      const competitorName = document.createElement('span');
-      competitorName.className = 'competitor-name';
-      if (competitor.name === 'HEALTH/HEALTH') {
-        competitorName.classList.add('featured');
-      }
-      competitorName.textContent = competitor.name;
-      
-      competitorLogo.appendChild(logoBox);
-      competitorLogo.appendChild(competitorName);
-      
-      const competitorValue = document.createElement('div');
-      competitorValue.className = `competitor-value ${competitor.value}`;
-      
-      // Add content to the value indicator based on status
-      if (competitor.value === 'true') {
-        competitorValue.textContent = '✓';
-      } else if (competitor.value === 'false') {
-        competitorValue.textContent = '×';
-      } else {
-        competitorValue.textContent = '~';
-      }
-      
-      competitorHeader.appendChild(competitorLogo);
-      competitorHeader.appendChild(competitorValue);
-      
-      const competitorNote = document.createElement('p');
-      competitorNote.className = 'competitor-note';
-      competitorNote.textContent = competitor.note;
-      
-      competitorCard.appendChild(competitorHeader);
-      competitorCard.appendChild(competitorNote);
-      
-      competitorsGrid.appendChild(competitorCard);
-    });
-    
-    slide.appendChild(slideHeader);
-    slide.appendChild(competitorsGrid);
-    
-    carouselTrack.appendChild(slide);
-  });
-}
+    const metricBars = document.querySelectorAll('.metric-progress');
+    const currentYearSpan = document.getElementById('currentYear');
+    const navLinks = document.querySelectorAll('.navigation .nav-link'); // For active state and smooth scroll
 
-// Create carousel indicators
-function createCarouselIndicators() {
-  carouselIndicators.innerHTML = '';
-  
-  comparisonData.forEach((_, index) => {
-    const indicator = document.createElement('button');
-    indicator.className = 'carousel-indicator';
-    indicator.setAttribute('data-index', index);
-    indicator.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+    // -----------------------------------------------------
+    // 2. Global State & Configuration
+    // -----------------------------------------------------
+    let currentSlide = 0;
+    let carouselIsAnimating = false;
+    let carouselAutoPlayInterval;
+    const CAROUSEL_AUTOPLAY_DELAY = 8000; // ms
+
+    // Dados para o Carrossel de Comparação (mantidos do script original)
+    const comparisonData = [
+      {
+        feature: "Documentação clínica dimensional",
+        description: "Documentação baseada em vetores dimensionais quantificando precisamente estados mentais em múltiplos eixos, substituindo a abordagem categorial tradicional.",
+        competitors: [
+          { name: "HEALTH/HEALTH", value: "true", note: "Mapeamento vetorial completo em 10 dimensões com visualização trajetorial e integração VINTRA." },
+          { name: "Dragon Medical", value: "false", note: "Foco em transcrição de voz para texto, sem análise dimensional ou estruturação clínica profunda." },
+          { name: "Sistemas Prontuário Eletrônico (Tradicionais)", value: "parcial", note: "Estruturação de dados limitada, geralmente categorial, sem captura de nuances dimensionais." },
+        ],
+      },
+      {
+        feature: "Análise linguística e fenomenológica",
+        description: "Captura e análise avançada de padrões linguísticos, marcadores prosódicos e temporais que revelam o estado mental subjacente e a experiência do paciente.",
+        competitors: [
+          { name: "HEALTH/HEALTH", value: "true", note: "Análise sintática, semântica, pragmática e fenomenológica com extração de biomarcadores linguísticos via IREAJE.CLOUD." },
+          { name: "Ferramentas de Transcrição com IA (e.g., Otter.ai, Google)", value: "parcial", note: "Transcrição com alguma identificação de termos, mas sem interpretação clínica ou fenomenológica." },
+          { name: "Plataformas de Análise de Sentimento Genéricas", value: "false", note: "Análise de sentimento superficial, não adaptada à complexidade do discurso clínico." },
+        ],
+      },
+      {
+        feature: "Visualização trajetorial e prognóstica",
+        description: "Representação gráfica da evolução do estado mental do paciente ao longo do tempo, identificando padrões, pontos críticos, atratores e projeções terapêuticas.",
+        competitors: [
+          { name: "HEALTH/HEALTH", value: "true", note: "Visualização vetorial multidimensional interativa com análise de sistemas dinâmicos e projeção de trajetórias." },
+          { name: "Dashboards de BI em Saúde", value: "parcial", note: "Visualização de dados agregados, mas sem análise trajetorial individualizada ou dimensional." },
+          { name: "Prontuários Eletrônicos (Tradicionais)", value: "false", note: "Representação textual ou tabular de dados, sem capacidade de visualização dinâmica ou prognóstica." },
+        ],
+      },
+      {
+        feature: "Runtime proprietário e DSLs (.aje .ire .e)",
+        description: "Infraestrutura tecnológica de alta performance com runtime euleriano (IREAJE.CLOUD) e linguagens de domínio específico para flexibilidade e poder analítico.",
+        competitors: [
+          { name: "HEALTH/HEALTH", value: "true", note: "Controle total sobre o stack tecnológico, otimizado para psiquiatria dimensional e processamento intensivo." },
+          { name: "Soluções baseadas em APIs de LLMs Genéricos", value: "false", note: "Dependência de modelos de terceiros, menos customização e controle sobre a lógica clínica profunda." },
+          { name: "Plataformas Low-code/No-code em Saúde", value: "false", note: "Flexibilidade limitada, não adequadas para a complexidade da análise dimensional e simbólica proprietária." },
+        ],
+      },
+    ];
+
+    // -----------------------------------------------------
+    // 3. Utility Functions
+    // -----------------------------------------------------
+    const throttle = (func, limit) => {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    };
+
+    const debounce = (func, delay) => {
+        let timeout;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), delay);
+        };
+    };
     
-    indicator.addEventListener('click', () => {
-      goToSlide(index);
-    });
-    
-    carouselIndicators.appendChild(indicator);
-  });
-}
+    // Easing function (mantida do original)
+    const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4);
 
-// Update carousel display
-function updateCarousel() {
-  // Update slide position
-  carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-  
-  // Update indicators
-  const indicators = document.querySelectorAll('.carousel-indicator');
-  indicators.forEach((indicator, index) => {
-    if (index === currentSlide) {
-      indicator.classList.add('active');
-    } else {
-      indicator.classList.remove('active');
-    }
-  });
-}
+    // -----------------------------------------------------
+    // 4. Initialization Function
+    // -----------------------------------------------------
+    function initializePage() {
+        console.log("HEALTH/HEALTH :: Initializing Premium JavaScript UX...");
 
-// Go to the previous slide
-function goToPrevSlide() {
-  if (isAnimating) return;
-  
-  isAnimating = true;
-  currentSlide = currentSlide === 0 ? comparisonData.length - 1 : currentSlide - 1;
-  
-  carouselTrack.style.opacity = '0';
-  
-  setTimeout(() => {
-    updateCarousel();
-    setTimeout(() => {
-      carouselTrack.style.opacity = '1';
-      isAnimating = false;
-    }, 100);
-  }, 300);
-}
-
-// Go to the next slide
-function goToNextSlide() {
-  if (isAnimating) return;
-  
-  isAnimating = true;
-  currentSlide = currentSlide === comparisonData.length - 1 ? 0 : currentSlide + 1;
-  
-  carouselTrack.style.opacity = '0';
-  
-  setTimeout(() => {
-    updateCarousel();
-    setTimeout(() => {
-      carouselTrack.style.opacity = '1';
-      isAnimating = false;
-    }, 100);
-  }, 300);
-}
-
-// Go to a specific slide
-function goToSlide(index) {
-  if (isAnimating || index === currentSlide) return;
-  
-  isAnimating = true;
-  currentSlide = index;
-  
-  carouselTrack.style.opacity = '0';
-  
-  setTimeout(() => {
-    updateCarousel();
-    setTimeout(() => {
-      carouselTrack.style.opacity = '1';
-      isAnimating = false;
-    }, 100);
-  }, 300);
-}
-
-// Auto advance the carousel
-function startCarouselAutoPlay() {
-  setInterval(() => {
-    if (!isAnimating && !document.querySelector('.carousel-container:hover')) {
-      goToNextSlide();
-    }
-  }, 8000);
-}
-
-// Handle tab switching
-function initTabs() {
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const tabId = button.getAttribute('data-tab');
-      
-      // Update active tab button
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-      });
-      button.classList.add('active');
-      
-      // Show active tab content
-      tabContents.forEach(content => {
-        content.classList.remove('active');
-        if (content.id === `tab-content-${tabId}`) {
-          content.classList.add('active');
-          
-          // If the tab with metrics is shown, animate the bars
-          if (tabId === 'investors') {
-            setTimeout(animateMetricBars, 300);
-          }
+        if (introAnimationElement && typedContentSpan) { // Só executa se os elementos da intro existirem
+            playIntroAnimation();
+        } else {
+            // Se a intro for removida do HTML, permite que o resto da página apareça imediatamente
+            document.body.style.opacity = 1; 
         }
-      });
-    });
-  });
-}
+        
+        setupHeader();
+        setupSmoothScrollAndActiveNav();
+        setupIntersectionObservers();
+        
+        if (carouselTrack && carouselPrevBtn && carouselNextBtn && carouselIndicatorsContainer) {
+            initCarousel();
+        }
+        
+        if (tabButtons.length > 0 && tabContents.length > 0) {
+            initTabs();
+        }
+        
+        updateFooterYear();
+        // initHeroBackgroundAnimation(); // Placeholder call
+        
+        console.log("HEALTH/HEALTH :: Premium JavaScript UX Initialized.");
+    }
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', playIntroAnimation);
+    // -----------------------------------------------------
+    // 5. Header Logic
+    // -----------------------------------------------------
+    function setupHeader() {
+        if (!header) return;
+
+        // Shrink on Scroll
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+        window.addEventListener('scroll', throttle(handleScroll, 100));
+
+        // Mobile Navigation Toggle
+        if (nav) {
+            mobileNavToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+                </svg>
+                <span class="visually-hidden">Abrir menu</span>`;
+            mobileNavToggle.className = 'mobile-nav-toggle';
+            mobileNavToggle.setAttribute('aria-expanded', 'false');
+            mobileNavToggle.setAttribute('aria-controls', 'navigation-menu'); // Assumindo que o nav tem id="navigation-menu"
+            
+            // Adicionar id ao nav se não tiver
+            if (!nav.id) nav.id = 'navigation-menu';
+
+            header.querySelector('.header-wrapper').appendChild(mobileNavToggle); // Adiciona antes das actions ou no final do wrapper
+
+            mobileNavToggle.addEventListener('click', () => {
+                const isExpanded = nav.classList.toggle('active');
+                mobileNavToggle.setAttribute('aria-expanded', isExpanded);
+                mobileNavToggle.querySelector('.visually-hidden').textContent = isExpanded ? 'Fechar menu' : 'Abrir menu';
+                document.body.classList.toggle('no-scroll', isExpanded); // Prevenir scroll do body quando menu aberto
+            });
+            
+            // Fechar menu mobile ao clicar em um link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileNavToggle.setAttribute('aria-expanded', 'false');
+                        mobileNavToggle.querySelector('.visually-hidden').textContent = 'Abrir menu';
+                        document.body.classList.remove('no-scroll');
+                    }
+                });
+            });
+        }
+    }
+
+    // -----------------------------------------------------
+    // 6. Intro Animation Logic (Mantida e Refinada)
+    // -----------------------------------------------------
+    function playIntroAnimation() {
+        if (!introAnimationElement || !micContainer || !typedContentSpan) return;
+
+        document.body.style.overflow = 'hidden'; // Previne scroll durante a intro
+        document.body.style.opacity = 0; // Esconde o corpo da página inicialmente
+
+        setTimeout(() => {
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            document.body.style.opacity = 1; // Mostra o corpo (que contém a intro)
+
+            micContainer.classList.add('active');
+            setTimeout(() => {
+                audioWaves.forEach((wave, index) => {
+                    setTimeout(() => wave.classList.add('active'), index * 250);
+                });
+                setTimeout(() => {
+                    if (typedTextElement) typedTextElement.classList.add('active');
+                    typeTextEffect("HEALTH / HEALTH", typedContentSpan, () => { // Callback para quando a digitação terminar
+                        setTimeout(completeIntroAnimation, 1200); // Delay após digitar antes de sumir a intro
+                    });
+                }, 1200); // Delay antes de começar a digitar
+            }, 800); // Delay após o microfone aparecer
+        }, 300); // Pequeno delay para garantir que o CSS da intro seja carregado
+    }
+
+    function typeTextEffect(text, targetElement, onComplete) {
+        if (!targetElement) return;
+        let i = 0;
+        targetElement.innerHTML = ''; // Limpa antes de começar
+        const typingSpeed = 120; // Velocidade de digitação (ms)
+
+        function type() {
+            if (i < text.length) {
+                targetElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, typingSpeed);
+            } else if (onComplete && typeof onComplete === 'function') {
+                onComplete();
+            }
+        }
+        type();
+    }
+
+    function completeIntroAnimation() {
+        if (!introAnimationElement) return;
+        introAnimationElement.style.opacity = '0';
+        setTimeout(() => {
+            introAnimationElement.style.display = 'none';
+            document.body.style.overflow = ''; // Restaura scroll
+        }, 800); // Tempo da transição de opacidade da intro
+    }
+
+    // -----------------------------------------------------
+    // 7. Smooth Scrolling & Active Navigation Highlighting
+    // -----------------------------------------------------
+    function setupSmoothScrollAndActiveNav() {
+        const headerHeight = header ? header.offsetHeight + (document.querySelector('.ms-badge')?.offsetHeight || 0) : 70;
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId.startsWith('#') && targetId.length > 1) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20; /* 20px extra offset */
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('main section[id]');
+        const updateActiveNav = () => {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 50; // 50px threshold
+                if (window.pageYOffset >= sectionTop) {
+                    currentSectionId = section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkHref = link.getAttribute('href');
+                if (linkHref && linkHref.includes(currentSectionId) && currentSectionId !== '') {
+                    link.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', throttle(updateActiveNav, 150));
+        updateActiveNav(); // Initial call
+    }
+
+    // -----------------------------------------------------
+    // 8. Intersection Observer for Animations
+    // -----------------------------------------------------
+    function setupIntersectionObservers() {
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.2 // 20% do elemento visível
+        };
+
+        const animateOnScroll = (entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Adiciona um delay escalonado para elementos em um grid, por exemplo
+                    const delay = entry.target.dataset.animationDelay ? parseInt(entry.target.dataset.animationDelay) : index * 100;
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, delay);
+                    
+                    // Anima barras de métrica se for a seção de métricas
+                    if (entry.target.classList.contains('metrics-column') || entry.target.classList.contains('metric')) {
+                        animateMetricBarsInView(entry.target);
+                    }
+                    
+                    observer.unobserve(entry.target); // Anima apenas uma vez
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+        
+        // Elementos que devem animar ao entrar na viewport
+        const elementsToAnimate = document.querySelectorAll(
+            '.feature-card, .audience-card, .credential-item, .job-card, .tech-item, .investment-points li, .metrics-column .metric, .competitor-card'
+        );
+        elementsToAnimate.forEach((el, index) => {
+            // Adicionar uma classe base para o estado inicial (ex: opacity 0, transform Y) no CSS
+            // E a classe 'is-visible' para o estado final.
+            // O CSS fará a transição.
+            // Ex: el.classList.add('animate-on-scroll-item');
+            el.dataset.animationDelay = index * 50; // Pequeno delay base
+            observer.observe(el);
+        });
+    }
+
+    function animateMetricBarsInView(container) {
+        const barsToAnimate = container.classList.contains('metric') ? [container.querySelector('.metric-progress')] : container.querySelectorAll('.metric-progress');
+        
+        barsToAnimate.forEach(bar => {
+            if (bar && !bar.classList.contains('animated-once')) { // Evita re-animar
+                const targetWidth = bar.dataset.targetWidth || bar.style.width || '0%'; // Pega do data-attr ou do style inline
+                const metricValueElement = bar.closest('.metric')?.querySelector('.metric-value');
+                const targetValue = metricValueElement ? parseInt(metricValueElement.textContent.replace('%', '')) : 0;
+
+                bar.style.width = '0%'; // Reset para animar do início
+                bar.classList.add('animated-once'); // Marca como animado
+
+                setTimeout(() => { // Força reflow
+                    bar.style.width = targetWidth;
+                    bar.classList.add('animated'); // Adiciona classe para efeito de brilho se houver no CSS
+                    if (metricValueElement) {
+                        animateCounter(metricValueElement, 0, targetValue, 1800); // Duração da animação da barra
+                    }
+                }, 100);
+            }
+        });
+    }
+    
+    // Animate counter (mantido do original, levemente adaptado)
+    function animateCounter(element, start, end, duration) {
+        const isPercentage = element.textContent.includes('%');
+        let startTimestamp = null;
+        
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const easedProgress = easeOutQuart(progress); // Usa a função de easing
+            const value = Math.floor(easedProgress * (end - start) + start);
+            element.textContent = isPercentage ? `${value}%` : value.toString();
+            
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+
+    // -----------------------------------------------------
+    // 9. Carousel Logic (Comparison Section - Mantido e Refinado)
+    // -----------------------------------------------------
+    function initCarousel() {
+        if (!carouselTrack || comparisonData.length === 0) return;
+
+        createCarouselSlides();
+        createCarouselIndicators();
+        updateCarouselVisuals();
+        
+        carouselPrevBtn?.addEventListener('click', () => navigateCarousel(-1));
+        carouselNextBtn?.addEventListener('click', () => navigateCarousel(1));
+        
+        startCarouselAutoPlay();
+        carouselTrack.closest('.comparison-carousel')?.addEventListener('mouseenter', stopCarouselAutoPlay);
+        carouselTrack.closest('.comparison-carousel')?.addEventListener('mouseleave', startCarouselAutoPlay);
+    }
+
+    function createCarouselSlides() {
+        carouselTrack.innerHTML = ''; // Limpa slides existentes
+        comparisonData.forEach((data, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.setAttribute('data-index', index);
+            slide.setAttribute('role', 'tabpanel');
+            slide.id = `carousel-slide-${index}`;
+            
+            let competitorsHTML = '<div class="competitors-grid">';
+            data.competitors.forEach(comp => {
+                competitorsHTML += `
+                    <div class="competitor-card ${comp.name === 'HEALTH/HEALTH' ? 'featured' : ''}">
+                        <div class="competitor-header">
+                            <div class="competitor-logo">
+                                <div class="competitor-logo-box"></div>
+                                <span class="competitor-name ${comp.name === 'HEALTH/HEALTH' ? 'featured' : ''}">${comp.name}</span>
+                            </div>
+                            <div class="competitor-value ${comp.value}" aria-label="${comp.value === 'true' ? 'Sim' : comp.value === 'false' ? 'Não' : 'Parcial'}">
+                                ${comp.value === 'true' ? '✓' : comp.value === 'false' ? '×' : '~'}
+                            </div>
+                        </div>
+                        <p class="competitor-note">${comp.note}</p>
+                    </div>`;
+            });
+            competitorsHTML += '</div>';
+
+            slide.innerHTML = `
+                <div class="carousel-slide-header">
+                    <h3>${data.feature}</h3>
+                    <p>${data.description}</p>
+                </div>
+                ${competitorsHTML}
+            `;
+            carouselTrack.appendChild(slide);
+        });
+    }
+
+    function createCarouselIndicators() {
+        carouselIndicatorsContainer.innerHTML = '';
+        comparisonData.forEach((_, index) => {
+            const indicator = document.createElement('button');
+            indicator.className = 'carousel-indicator';
+            indicator.setAttribute('data-index', index);
+            indicator.setAttribute('aria-label', `Ir para slide ${index + 1}`);
+            indicator.setAttribute('role', 'tab');
+            indicator.setAttribute('aria-controls', `carousel-slide-${index}`);
+            indicator.addEventListener('click', () => goToCarouselSlide(index));
+            carouselIndicatorsContainer.appendChild(indicator);
+        });
+    }
+
+    function updateCarouselVisuals() {
+        if (!carouselTrack) return;
+        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Atualiza indicadores
+        const indicators = carouselIndicatorsContainer.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentSlide);
+            indicator.setAttribute('aria-selected', index === currentSlide);
+        });
+
+        // Atualiza slides (para acessibilidade)
+        const slides = carouselTrack.querySelectorAll('.carousel-slide');
+        slides.forEach((slide,index) => {
+            slide.setAttribute('aria-hidden', index !== currentSlide);
+            slide.style.visibility = index === currentSlide ? 'visible' : 'hidden';
+        });
+
+        // Foco no slide ativo (opcional, para melhor acessibilidade com teclado)
+        // slides[currentSlide]?.focus(); 
+    }
+
+    function navigateCarousel(direction) {
+        if (carouselIsAnimating) return;
+        carouselIsAnimating = true;
+        
+        const numSlides = comparisonData.length;
+        currentSlide = (currentSlide + direction + numSlides) % numSlides;
+        
+        // Usar transição CSS para o efeito visual, JS apenas atualiza o estado
+        updateCarouselVisuals();
+        
+        // Permitir nova navegação após a transição do CSS
+        // A duração da transição é definida em --transition-duration-slow no CSS (500ms)
+        setTimeout(() => { carouselIsAnimating = false; }, 500); 
+    }
+
+    function goToCarouselSlide(index) {
+        if (carouselIsAnimating || index === currentSlide) return;
+        carouselIsAnimating = true;
+        currentSlide = index;
+        updateCarouselVisuals();
+        setTimeout(() => { carouselIsAnimating = false; }, 500);
+    }
+
+    function startCarouselAutoPlay() {
+        stopCarouselAutoPlay(); // Limpa intervalo anterior, se houver
+        carouselAutoPlayInterval = setInterval(() => navigateCarousel(1), CAROUSEL_AUTOPLAY_DELAY);
+    }
+    function stopCarouselAutoPlay() {
+        clearInterval(carouselAutoPlayInterval);
+    }
+
+    // -----------------------------------------------------
+    // 10. Tabs Logic (Opportunities Section - Mantido e Refinado)
+    // -----------------------------------------------------
+    function initTabs() {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('active')) return;
+
+                const targetTabId = button.dataset.tab; // Ex: "developers"
+                
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+                button.classList.add('active');
+                button.setAttribute('aria-selected', 'true');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.setAttribute('hidden', true); // Para acessibilidade
+                    if (content.id === `tab-content-${targetTabId}`) {
+                        content.classList.add('active');
+                        content.removeAttribute('hidden');
+                        
+                        // Se a aba de investidores for ativada, re-anime as barras de métrica
+                        if (targetTabId === 'investors') {
+                           const metricsCol = content.querySelector('.metrics-column');
+                           if(metricsCol) animateMetricBarsInView(metricsCol);
+                        }
+                    }
+                });
+            });
+        });
+
+        // Ativa a primeira aba por padrão, se nenhuma estiver ativa
+        if (document.querySelector('.tab-button.active') === null && tabButtons.length > 0) {
+            tabButtons[0].click();
+        }
+    }
+
+    // -----------------------------------------------------
+    // 11. Footer Logic
+    // -----------------------------------------------------
+    function updateFooterYear() {
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+    }
+
+    // -----------------------------------------------------
+    // 12. Hero Background Animation (Placeholder/Initialization)
+    // -----------------------------------------------------
+    function initHeroBackgroundAnimation() {
+        // const heroCanvas = document.getElementById('hero-vector-animation');
+        // if (heroCanvas && heroCanvas.getContext) {
+        //     const ctx = heroCanvas.getContext('2d');
+        //     // Lógica da sua animação vetorial aqui
+        //     // Ex: partículas, ondas, formas geométricas se movendo sutilmente
+        //     console.log("Hero Canvas Animation Initialized (Placeholder)");
+        //
+        //     function resizeCanvas() {
+        //         heroCanvas.width = heroCanvas.offsetWidth;
+        //         heroCanvas.height = heroCanvas.offsetHeight;
+        //         // Redesenhar animação se necessário
+        //     }
+        //     window.addEventListener('resize', debounce(resizeCanvas, 250));
+        //     resizeCanvas(); // Initial size
+        //
+        //     function animate() {
+        //         // ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+        //         // ... sua lógica de desenho ...
+        //         requestAnimationFrame(animate);
+        //     }
+        //     // animate(); // Começa a animação
+        // }
+    }
+
+    // Inicia tudo!
+    initializePage();
+});

@@ -17,12 +17,12 @@ TABLE OF CONTENTS:
 7.  Smooth Scrolling & Active Navigation Highlighting
 8.  Intersection Observer for Animations
     - Feature Cards (and similar elements)
-    - Metric Bars Animation
+    - Metric Bars Animation (Se a seção de Oportunidades for mantida)
 9.  Carousel Logic (Comparison Section)
     - Slide Creation & Management
     - Navigation (Prev/Next, Indicators)
     - Autoplay
-10. Tabs Logic (Opportunities Section)
+10. Tabs Logic (Opportunities Section) - LÓGICA REMOVIDA/COMENTADA
 11. Footer Logic
     - Current Year
 12. Hero Background Animation (Placeholder/Initialization)
@@ -34,26 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. DOM Element Selectors
     // -----------------------------------------------------
     const header = document.querySelector('.header');
-    const nav = document.querySelector('.navigation'); // For mobile menu
-    const mobileNavToggle = document.createElement('button'); // Create mobile toggle
+    const nav = document.querySelector('.navigation');
+    const mobileNavToggle = document.createElement('button'); 
     
     const introAnimationElement = document.getElementById('intro-animation');
     const micContainer = document.querySelector('.mic-container');
     const audioWaves = document.querySelectorAll('.audio-wave');
-    const typedTextElement = document.querySelector('.typed-text'); // Container for typed content
-    const typedContentSpan = document.getElementById('typed-content'); // Span where text is typed
+    const typedTextElement = document.querySelector('.typed-text');
+    const typedContentSpan = document.getElementById('typed-content');
     
+    // Carousel elements (ainda necessários para desktop)
     const carouselTrack = document.getElementById('carousel-track');
     const carouselPrevBtn = document.getElementById('carousel-prev');
     const carouselNextBtn = document.getElementById('carousel-next');
     const carouselIndicatorsContainer = document.getElementById('carousel-indicators');
     
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // Tab elements - A seção foi removida, mas mantemos as variáveis caso o JS seja reaproveitado
+    // const tabButtons = document.querySelectorAll('.tab-button'); 
+    // const tabContents = document.querySelectorAll('.tab-content');
     
-    const metricBars = document.querySelectorAll('.metric-progress');
+    // const metricBars = document.querySelectorAll('.metric-progress'); // Associado às abas, pode ser removido se não houver outras métricas
     const currentYearSpan = document.getElementById('currentYear');
-    const navLinks = document.querySelectorAll('.navigation .nav-link'); // For active state and smooth scroll
+    const navLinks = document.querySelectorAll('.navigation .nav-link, .footer .footer-link'); // Inclui links do footer para smooth scroll
 
     // -----------------------------------------------------
     // 2. Global State & Configuration
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let carouselAutoPlayInterval;
     const CAROUSEL_AUTOPLAY_DELAY = 8000; // ms
 
-    // Dados para o Carrossel de Comparação (mantidos do script original)
+    // Dados para o Carrossel de Comparação (mantidos)
     const comparisonData = [
       {
         feature: "Documentação clínica dimensional",
@@ -129,19 +131,17 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     };
     
-    // Easing function (mantida do original)
     const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4);
 
     // -----------------------------------------------------
     // 4. Initialization Function
     // -----------------------------------------------------
     function initializePage() {
-        console.log("HEALTH/HEALTH :: Initializing Premium JavaScript UX...");
+        console.log("HEALTH/HEALTH :: Initializing Premium JavaScript UX (v2)...");
 
-        if (introAnimationElement && typedContentSpan) { // Só executa se os elementos da intro existirem
+        if (introAnimationElement && typedContentSpan) { 
             playIntroAnimation();
         } else {
-            // Se a intro for removida do HTML, permite que o resto da página apareça imediatamente
             document.body.style.opacity = 1; 
         }
         
@@ -149,18 +149,23 @@ document.addEventListener('DOMContentLoaded', function() {
         setupSmoothScrollAndActiveNav();
         setupIntersectionObservers();
         
-        if (carouselTrack && carouselPrevBtn && carouselNextBtn && carouselIndicatorsContainer) {
-            initCarousel();
+        // Inicializa o carrossel apenas se os elementos existirem (para desktop)
+        if (document.getElementById('comparison') && carouselTrack && carouselPrevBtn && carouselNextBtn && carouselIndicatorsContainer) {
+            // Verifica se a seção de comparação está visível (não é mobile)
+            const comparisonSection = document.getElementById('comparison');
+            if (comparisonSection && getComputedStyle(comparisonSection).display !== 'none') {
+                 initCarousel();
+            }
         }
         
-        if (tabButtons.length > 0 && tabContents.length > 0) {
-            initTabs();
-        }
+        // Lógica das Abas foi removida, então initTabs() não é mais chamado
+        // if (tabButtons.length > 0 && tabContents.length > 0) {
+        //     initTabs(); 
+        // }
         
         updateFooterYear();
-        // initHeroBackgroundAnimation(); // Placeholder call
         
-        console.log("HEALTH/HEALTH :: Premium JavaScript UX Initialized.");
+        console.log("HEALTH/HEALTH :: Premium JavaScript UX Initialized (v2).");
     }
 
     // -----------------------------------------------------
@@ -169,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupHeader() {
         if (!header) return;
 
-        // Shrink on Scroll
         const handleScroll = () => {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
@@ -179,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         window.addEventListener('scroll', throttle(handleScroll, 100));
 
-        // Mobile Navigation Toggle
         if (nav) {
             mobileNavToggle.innerHTML = `
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
@@ -188,21 +191,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="visually-hidden">Abrir menu</span>`;
             mobileNavToggle.className = 'mobile-nav-toggle';
             mobileNavToggle.setAttribute('aria-expanded', 'false');
-            mobileNavToggle.setAttribute('aria-controls', 'navigation-menu'); // Assumindo que o nav tem id="navigation-menu"
+            mobileNavToggle.setAttribute('aria-controls', 'navigation-menu');
             
-            // Adicionar id ao nav se não tiver
             if (!nav.id) nav.id = 'navigation-menu';
 
-            header.querySelector('.header-wrapper').appendChild(mobileNavToggle); // Adiciona antes das actions ou no final do wrapper
+            // Adiciona o botão de toggle ao header-wrapper, antes dos actions
+            const headerActions = header.querySelector('.header-actions');
+            if (headerActions) {
+                header.querySelector('.header-wrapper').insertBefore(mobileNavToggle, headerActions);
+            } else {
+                 header.querySelector('.header-wrapper').appendChild(mobileNavToggle);
+            }
+            
 
             mobileNavToggle.addEventListener('click', () => {
                 const isExpanded = nav.classList.toggle('active');
                 mobileNavToggle.setAttribute('aria-expanded', isExpanded);
                 mobileNavToggle.querySelector('.visually-hidden').textContent = isExpanded ? 'Fechar menu' : 'Abrir menu';
-                document.body.classList.toggle('no-scroll', isExpanded); // Prevenir scroll do body quando menu aberto
+                document.body.classList.toggle('no-scroll', isExpanded); 
             });
             
-            // Fechar menu mobile ao clicar em um link
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     if (nav.classList.contains('active')) {
@@ -217,17 +225,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // -----------------------------------------------------
-    // 6. Intro Animation Logic (Mantida e Refinada)
+    // 6. Intro Animation Logic
     // -----------------------------------------------------
     function playIntroAnimation() {
         if (!introAnimationElement || !micContainer || !typedContentSpan) return;
 
-        document.body.style.overflow = 'hidden'; // Previne scroll durante a intro
-        document.body.style.opacity = 0; // Esconde o corpo da página inicialmente
+        document.body.style.overflow = 'hidden'; 
+        document.body.style.opacity = 0; 
 
         setTimeout(() => {
             document.body.style.transition = 'opacity 0.5s ease-in-out';
-            document.body.style.opacity = 1; // Mostra o corpo (que contém a intro)
+            document.body.style.opacity = 1; 
 
             micContainer.classList.add('active');
             setTimeout(() => {
@@ -236,19 +244,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 setTimeout(() => {
                     if (typedTextElement) typedTextElement.classList.add('active');
-                    typeTextEffect("HEALTH / HEALTH", typedContentSpan, () => { // Callback para quando a digitação terminar
-                        setTimeout(completeIntroAnimation, 1200); // Delay após digitar antes de sumir a intro
+                    typeTextEffect("HEALTH / HEALTH", typedContentSpan, () => { 
+                        setTimeout(completeIntroAnimation, 1200); 
                     });
-                }, 1200); // Delay antes de começar a digitar
-            }, 800); // Delay após o microfone aparecer
-        }, 300); // Pequeno delay para garantir que o CSS da intro seja carregado
+                }, 1200); 
+            }, 800); 
+        }, 300); 
     }
 
     function typeTextEffect(text, targetElement, onComplete) {
         if (!targetElement) return;
         let i = 0;
-        targetElement.innerHTML = ''; // Limpa antes de começar
-        const typingSpeed = 120; // Velocidade de digitação (ms)
+        targetElement.innerHTML = ''; 
+        const typingSpeed = 120; 
 
         function type() {
             if (i < text.length) {
@@ -267,15 +275,18 @@ document.addEventListener('DOMContentLoaded', function() {
         introAnimationElement.style.opacity = '0';
         setTimeout(() => {
             introAnimationElement.style.display = 'none';
-            document.body.style.overflow = ''; // Restaura scroll
-        }, 800); // Tempo da transição de opacidade da intro
+            document.body.style.overflow = ''; 
+        }, 800); 
     }
 
     // -----------------------------------------------------
     // 7. Smooth Scrolling & Active Navigation Highlighting
     // -----------------------------------------------------
     function setupSmoothScrollAndActiveNav() {
-        const headerHeight = header ? header.offsetHeight + (document.querySelector('.ms-badge')?.offsetHeight || 0) : 70;
+        const headerMainHeight = header ? header.querySelector('.header-wrapper').offsetHeight : 70;
+        const msBadge = document.querySelector('.ms-badge');
+        const msBadgeHeight = msBadge ? msBadge.offsetHeight : 0;
+        const totalHeaderHeight = headerMainHeight + msBadgeHeight;
         
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -284,7 +295,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20; /* 20px extra offset */
+                        // Ajuste para considerar o header fixo + badge
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - totalHeaderHeight - 20; /* 20px extra offset */
                         window.scrollTo({
                             top: targetPosition,
                             behavior: 'smooth'
@@ -298,13 +310,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const updateActiveNav = () => {
             let currentSectionId = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - headerHeight - 50; // 50px threshold
-                if (window.pageYOffset >= sectionTop) {
-                    currentSectionId = section.id;
+                // Verifica se a seção está visível antes de considerá-la para navegação ativa
+                if (section.offsetParent !== null) { // offsetParent é null para elementos com display:none
+                    const sectionTop = section.offsetTop - totalHeaderHeight - 50; 
+                    if (window.pageYOffset >= sectionTop) {
+                        currentSectionId = section.id;
+                    }
                 }
             });
-
-            navLinks.forEach(link => {
+            
+            // Atualiza apenas os links da navegação principal (não do footer) para o estado ativo
+            const mainNavLinks = document.querySelectorAll('.navigation .nav-link');
+            mainNavLinks.forEach(link => {
                 link.classList.remove('active');
                 const linkHref = link.getAttribute('href');
                 if (linkHref && linkHref.includes(currentSectionId) && currentSectionId !== '') {
@@ -313,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         };
         window.addEventListener('scroll', throttle(updateActiveNav, 150));
-        updateActiveNav(); // Initial call
+        updateActiveNav(); 
     }
 
     // -----------------------------------------------------
@@ -321,94 +338,65 @@ document.addEventListener('DOMContentLoaded', function() {
     // -----------------------------------------------------
     function setupIntersectionObservers() {
         const observerOptions = {
-            root: null, // viewport
+            root: null, 
             rootMargin: '0px',
-            threshold: 0.2 // 20% do elemento visível
+            threshold: 0.15 // Reduzido para disparar um pouco antes
         };
 
         const animateOnScroll = (entries, observer) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // Adiciona um delay escalonado para elementos em um grid, por exemplo
-                    const delay = entry.target.dataset.animationDelay ? parseInt(entry.target.dataset.animationDelay) : index * 100;
+                    const delay = entry.target.dataset.animationDelay ? parseInt(entry.target.dataset.animationDelay) : index * 50; // Reduzido delay base
                     setTimeout(() => {
                         entry.target.classList.add('is-visible');
                     }, delay);
                     
-                    // Anima barras de métrica se for a seção de métricas
-                    if (entry.target.classList.contains('metrics-column') || entry.target.classList.contains('metric')) {
-                        animateMetricBarsInView(entry.target);
-                    }
+                    // A lógica de animateMetricBarsInView foi removida pois a seção de Oportunidades não existe mais
+                    // if (entry.target.classList.contains('metrics-column') || entry.target.classList.contains('metric')) {
+                    //     animateMetricBarsInView(entry.target);
+                    // }
                     
-                    observer.unobserve(entry.target); // Anima apenas uma vez
+                    observer.unobserve(entry.target); 
                 }
             });
         };
 
         const observer = new IntersectionObserver(animateOnScroll, observerOptions);
         
-        // Elementos que devem animar ao entrar na viewport
         const elementsToAnimate = document.querySelectorAll(
-            '.feature-card, .audience-card, .credential-item, .job-card, .tech-item, .investment-points li, .metrics-column .metric, .competitor-card'
+            '.feature-card, .audience-card, .credential-item, .competitor-card' // Removido .job-card, .tech-item, etc.
         );
         elementsToAnimate.forEach((el, index) => {
-            // Adicionar uma classe base para o estado inicial (ex: opacity 0, transform Y) no CSS
-            // E a classe 'is-visible' para o estado final.
-            // O CSS fará a transição.
-            // Ex: el.classList.add('animate-on-scroll-item');
-            el.dataset.animationDelay = index * 50; // Pequeno delay base
+            el.dataset.animationDelay = index * 50; 
             observer.observe(el);
         });
     }
 
+    // A função animateMetricBarsInView e animateCounter não são mais necessárias se a seção de oportunidades foi removida.
+    // Se houver outras barras de métrica ou contadores, elas podem ser mantidas/adaptadas.
+    /*
     function animateMetricBarsInView(container) {
-        const barsToAnimate = container.classList.contains('metric') ? [container.querySelector('.metric-progress')] : container.querySelectorAll('.metric-progress');
-        
-        barsToAnimate.forEach(bar => {
-            if (bar && !bar.classList.contains('animated-once')) { // Evita re-animar
-                const targetWidth = bar.dataset.targetWidth || bar.style.width || '0%'; // Pega do data-attr ou do style inline
-                const metricValueElement = bar.closest('.metric')?.querySelector('.metric-value');
-                const targetValue = metricValueElement ? parseInt(metricValueElement.textContent.replace('%', '')) : 0;
-
-                bar.style.width = '0%'; // Reset para animar do início
-                bar.classList.add('animated-once'); // Marca como animado
-
-                setTimeout(() => { // Força reflow
-                    bar.style.width = targetWidth;
-                    bar.classList.add('animated'); // Adiciona classe para efeito de brilho se houver no CSS
-                    if (metricValueElement) {
-                        animateCounter(metricValueElement, 0, targetValue, 1800); // Duração da animação da barra
-                    }
-                }, 100);
-            }
-        });
+        // ... (código anterior)
     }
-    
-    // Animate counter (mantido do original, levemente adaptado)
     function animateCounter(element, start, end, duration) {
-        const isPercentage = element.textContent.includes('%');
-        let startTimestamp = null;
-        
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const easedProgress = easeOutQuart(progress); // Usa a função de easing
-            const value = Math.floor(easedProgress * (end - start) + start);
-            element.textContent = isPercentage ? `${value}%` : value.toString();
-            
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
+        // ... (código anterior)
     }
+    */
 
 
     // -----------------------------------------------------
-    // 9. Carousel Logic (Comparison Section - Mantido e Refinado)
+    // 9. Carousel Logic (Comparison Section)
     // -----------------------------------------------------
     function initCarousel() {
         if (!carouselTrack || comparisonData.length === 0) return;
+
+        // Verifica novamente se a seção de comparação está visível antes de prosseguir
+        const comparisonSection = document.getElementById('comparison');
+        if (!comparisonSection || getComputedStyle(comparisonSection).display === 'none') {
+            console.log("Carousel initialization skipped: comparison section is hidden.");
+            return;
+        }
+        console.log("Initializing carousel...");
 
         createCarouselSlides();
         createCarouselIndicators();
@@ -423,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createCarouselSlides() {
-        carouselTrack.innerHTML = ''; // Limpa slides existentes
+        carouselTrack.innerHTML = ''; 
         comparisonData.forEach((data, index) => {
             const slide = document.createElement('div');
             slide.className = 'carousel-slide';
@@ -436,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 competitorsHTML += `
                     <div class="competitor-card ${comp.name === 'HEALTH/HEALTH' ? 'featured' : ''}">
                         <div class="competitor-header">
-                            <div class="competitor-logo">
+                             <div class="competitor-logo" style="display: flex; align-items: center; gap: 8px;">
                                 <div class="competitor-logo-box"></div>
                                 <span class="competitor-name ${comp.name === 'HEALTH/HEALTH' ? 'featured' : ''}">${comp.name}</span>
                             </div>
@@ -461,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createCarouselIndicators() {
+        if (!carouselIndicatorsContainer) return;
         carouselIndicatorsContainer.innerHTML = '';
         comparisonData.forEach((_, index) => {
             const indicator = document.createElement('button');
@@ -478,41 +467,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!carouselTrack) return;
         carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
         
-        // Atualiza indicadores
-        const indicators = carouselIndicatorsContainer.querySelectorAll('.carousel-indicator');
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentSlide);
-            indicator.setAttribute('aria-selected', index === currentSlide);
-        });
+        if (carouselIndicatorsContainer) {
+            const indicators = carouselIndicatorsContainer.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+                indicator.setAttribute('aria-selected', index === currentSlide);
+            });
+        }
 
-        // Atualiza slides (para acessibilidade)
         const slides = carouselTrack.querySelectorAll('.carousel-slide');
         slides.forEach((slide,index) => {
             slide.setAttribute('aria-hidden', index !== currentSlide);
             slide.style.visibility = index === currentSlide ? 'visible' : 'hidden';
         });
-
-        // Foco no slide ativo (opcional, para melhor acessibilidade com teclado)
-        // slides[currentSlide]?.focus(); 
     }
 
     function navigateCarousel(direction) {
-        if (carouselIsAnimating) return;
+        if (carouselIsAnimating || !carouselTrack) return; // Adicionada verificação de carouselTrack
         carouselIsAnimating = true;
         
         const numSlides = comparisonData.length;
         currentSlide = (currentSlide + direction + numSlides) % numSlides;
         
-        // Usar transição CSS para o efeito visual, JS apenas atualiza o estado
         updateCarouselVisuals();
         
-        // Permitir nova navegação após a transição do CSS
-        // A duração da transição é definida em --transition-duration-slow no CSS (500ms)
         setTimeout(() => { carouselIsAnimating = false; }, 500); 
     }
 
     function goToCarouselSlide(index) {
-        if (carouselIsAnimating || index === currentSlide) return;
+        if (carouselIsAnimating || index === currentSlide || !carouselTrack) return; // Adicionada verificação de carouselTrack
         carouselIsAnimating = true;
         currentSlide = index;
         updateCarouselVisuals();
@@ -520,7 +503,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startCarouselAutoPlay() {
-        stopCarouselAutoPlay(); // Limpa intervalo anterior, se houver
+        if (!carouselTrack) return; // Adicionada verificação
+        stopCarouselAutoPlay(); 
         carouselAutoPlayInterval = setInterval(() => navigateCarousel(1), CAROUSEL_AUTOPLAY_DELAY);
     }
     function stopCarouselAutoPlay() {
@@ -528,44 +512,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // -----------------------------------------------------
-    // 10. Tabs Logic (Opportunities Section - Mantido e Refinado)
+    // 10. Tabs Logic (Opportunities Section) - REMOVIDA
     // -----------------------------------------------------
+    /*
     function initTabs() {
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('active')) return;
-
-                const targetTabId = button.dataset.tab; // Ex: "developers"
-                
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.setAttribute('aria-selected', 'false');
-                });
-                button.classList.add('active');
-                button.setAttribute('aria-selected', 'true');
-                
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                    content.setAttribute('hidden', true); // Para acessibilidade
-                    if (content.id === `tab-content-${targetTabId}`) {
-                        content.classList.add('active');
-                        content.removeAttribute('hidden');
-                        
-                        // Se a aba de investidores for ativada, re-anime as barras de métrica
-                        if (targetTabId === 'investors') {
-                           const metricsCol = content.querySelector('.metrics-column');
-                           if(metricsCol) animateMetricBarsInView(metricsCol);
-                        }
-                    }
-                });
-            });
-        });
-
-        // Ativa a primeira aba por padrão, se nenhuma estiver ativa
-        if (document.querySelector('.tab-button.active') === null && tabButtons.length > 0) {
-            tabButtons[0].click();
-        }
+        // ... (código anterior das abas, agora comentado ou removido)
     }
+    */
 
     // -----------------------------------------------------
     // 11. Footer Logic
@@ -577,33 +530,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // -----------------------------------------------------
-    // 12. Hero Background Animation (Placeholder/Initialization)
+    // 12. Hero Background Animation (Placeholder)
     // -----------------------------------------------------
-    function initHeroBackgroundAnimation() {
-        // const heroCanvas = document.getElementById('hero-vector-animation');
-        // if (heroCanvas && heroCanvas.getContext) {
-        //     const ctx = heroCanvas.getContext('2d');
-        //     // Lógica da sua animação vetorial aqui
-        //     // Ex: partículas, ondas, formas geométricas se movendo sutilmente
-        //     console.log("Hero Canvas Animation Initialized (Placeholder)");
-        //
-        //     function resizeCanvas() {
-        //         heroCanvas.width = heroCanvas.offsetWidth;
-        //         heroCanvas.height = heroCanvas.offsetHeight;
-        //         // Redesenhar animação se necessário
-        //     }
-        //     window.addEventListener('resize', debounce(resizeCanvas, 250));
-        //     resizeCanvas(); // Initial size
-        //
-        //     function animate() {
-        //         // ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-        //         // ... sua lógica de desenho ...
-        //         requestAnimationFrame(animate);
-        //     }
-        //     // animate(); // Começa a animação
-        // }
-    }
+    // function initHeroBackgroundAnimation() { ... } // Mantido como placeholder
 
     // Inicia tudo!
     initializePage();
+
+    // Adiciona um listener para redimensionamento para reinicializar o carrossel se necessário
+    // (ex: se a janela for redimensionada de mobile para desktop)
+    window.addEventListener('resize', debounce(() => {
+        const comparisonSection = document.getElementById('comparison');
+        if (comparisonSection && carouselTrack) { // Verifica se carouselTrack existe
+            if (getComputedStyle(comparisonSection).display !== 'none') {
+                // Se a seção de comparação está visível e o carrossel não foi inicializado ou precisa ser refeito
+                if (!carouselTrack.children.length || currentSlide < 0) { // Condição simples para verificar se precisa reinicializar
+                    currentSlide = 0; // Reseta o slide
+                    initCarousel();
+                }
+            } else {
+                // Se a seção de comparação está oculta, para o autoplay
+                stopCarouselAutoPlay();
+                // Poderia também limpar o track: carouselTrack.innerHTML = ''; currentSlide = -1;
+            }
+        }
+    }, 250));
+
 });

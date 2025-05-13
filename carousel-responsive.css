@@ -1,0 +1,98 @@
+/* Enhanced Responsive Carousel Styling */
+
+.comparison-carousel {
+  position: relative;
+  z-index: 1;
+  max-width: 960px; 
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-xl); 
+  box-shadow: var(--shadow-lg); 
+  background-color: var(--color-background);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform var(--transition-duration-slow) var(--transition-timing-function);
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* Responsive improvements for mobile devices */
+@media (max-width: 768px) {
+  .carousel-slide {
+    padding: var(--space-md) var(--space-md);
+  }
+  
+  .carousel-slide-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .competitors-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .competitor-card {
+    padding: var(--space-md);
+  }
+  
+  /* Adjust arrow positions for smaller screens */
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    top: auto;
+    bottom: -60px;
+    transform: translateY(0);
+  }
+  
+  .carousel-arrow:hover, .carousel-arrow:focus {
+    transform: translateY(0) scale(1.05);
+  }
+  
+  .carousel-arrow.carousel-prev {
+    left: calc(50% - 45px);
+  }
+  
+  .carousel-arrow.carousel-next {
+    right: calc(50% - 45px);
+  }
+  
+  /* Adjust indicators for better mobile experience */
+  .carousel-indicators {
+    margin-top: var(--space-xxl);
+  }
+}
+
+/* Touch-friendly swipe support */
+.carousel-container {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Improve animation smoothness */
+.carousel-slide {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Accessibility improvements */
+.carousel-arrow:focus {
+  outline: 2px solid var(--color-primary-accent);
+  outline-offset: 2px;
+}
+
+.carousel-indicator:focus {
+  outline: 2px solid var(--color-primary-accent);
+  outline-offset: 2px;
+}

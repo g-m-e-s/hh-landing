@@ -1,0 +1,66 @@
+/* Mobile-specific Header Styling with Logo Alternation */
+
+@media (max-width: 768px) {
+  .header-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+  }
+  
+  /* Adjust logo for mobile */
+  .logo {
+    margin-right: 0;
+  }
+  
+  /* Make Microsoft badge display properly on mobile */
+  .ms-badge-inline {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .ms-badge-inline .partner-badge {
+    display: none;
+  }
+  
+  /* Show/hide logo based on scroll position for mobile */
+  .header.scrolled .logo-text {
+    display: none;
+  }
+  
+  .header.scrolled .logo-image {
+    margin-right: 0;
+  }
+  
+  /* Compact header on scroll */
+  .header.scrolled .header-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+  }
+  
+  .header.scrolled .ms-badge-inline {
+    width: auto;
+  }
+  
+  .header.scrolled .ms-badge-inline .ms-logo {
+    margin-left: 0;
+  }
+  
+  /* Improve touch targets for mobile */
+  .logo, .ms-badge-inline {
+    padding: var(--space-xs);
+  }
+}
+
+/* Logo transition animations */
+.logo-text, .logo-image, .ms-badge-inline, .header-wrapper {
+  transition: all var(--transition-duration-normal) var(--transition-timing-function);
+}
+
+/* Add shadow to header when scrolled on mobile */
+@media (max-width: 768px) {
+  .header.scrolled {
+    box-shadow: var(--shadow-md);
+  }
+}

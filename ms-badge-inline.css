@@ -1,0 +1,33 @@
+/* Microsoft Badge Inline in header */
+.ms-badge-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.75rem;
+  height: 100%;
+  padding: var(--space-xs) 0;
+  transition: opacity var(--transition-duration-normal) var(--transition-timing-premium);
+}
+
+.ms-badge-inline .partner-badge {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.ms-badge-inline .ms-logo {
+  width: auto;
+  height: clamp(18px, 2vw, 22px);
+  opacity: 0.95;
+}
+
+.ms-badge-inline .ms-text {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Hide the old badge since we now have it inline */
+.ms-badge {
+  display: none;
+}

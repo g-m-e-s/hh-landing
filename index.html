@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <!-- 
   HEALTH/HEALTH - Premium Release HTML
   
   -----------------------------------------------------------------------------
   TABLE OF CONTENTS:
   -------------------------------------------------------------------------------
-  1.  Metadados e Links Externos
-      - Charset, Viewport, Título, Descrição
-      - Preload de Fontes e Recursos Críticos
-      - SEO Tags e Social Media
+  1.  Metadata and External Links
+      - Charset, Viewport, Title, Description
+      - Preload of Fonts and Critical Resources
+      - SEO Tags and Social Media
 
-  2.  Componentes Globais
-      - Animação de Introdução
-      - Header (Navegação e Badge Microsoft)
+  2.  Global Components
+      - Introduction Animation
+      - Header (Navigation and Microsoft Badge)
       - Skip-to-content
   
-  3.  Conteúdo Principal
-      - Hero Section (Título, Subtítulo, CTA)
-      - Seção "O que é HEALTH/HEALTH"
-      - Features Grid (Capacidades)
-      - Target Audience (Para Quem)
-      - Diferenciais
-      - Comparação com Competidores (Desktop Only)
-      - Credenciais
-      - CTA Final
+  3.  Main Content
+      - Hero Section (Title, Subtitle, CTA)
+      - "What is HEALTH/HEALTH" Section
+      - Features Grid (Capabilities)
+      - Target Audience (Who is it for)
+      - Differentiators
+      - Comparison with Competitors (Desktop Only)
+      - Credentials
+      - Final CTA
   
   4.  Footer
-      - Informações de Contato
-      - Links de Navegação
-      - Links Externos
-      - Informações Legais
+      - Contact Information
+      - Navigation Links
+      - External Links
+      - Legal Information
       
-  5.  Scripts e Recursos Adicionais
+  5.  Scripts and Additional Resources
       - Main JavaScript
       - Deferred Resources
   ----------------------------------------------------------------------------- 
@@ -46,9 +46,8 @@
   <!-- Título e Descrição -->
   <title>HEALTH/HEALTH - An AI-clinician built for care, not bureaucracy.</title>
   <meta name="description" content="HEALTH/HEALTH is a dimensional AI platform for psychiatry, powered by symbolic language and a proprietary runtime. It delivers diagnostic clarity and therapeutic precision in real time.">
-  
-  <!-- SEO & Metadata -->
-  <meta name="keywords" content="psiquiatria, IA, healthtech, vetorial, VINTRA, IREAJE, diagnóstico dimensional, saúde mental, AI in mental health, startup, tecnologia em saúde">
+    <!-- SEO & Metadata -->
+  <meta name="keywords" content="psychiatry, AI, healthtech, vector, VINTRA, IREAJE, dimensional diagnosis, mental health, AI in mental health, startup, health technology">
   <meta name="author" content="HEALTH/HEALTH">
   <meta name="theme-color" content="#00B2C9">
   
@@ -75,18 +74,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
   <!-- Fontes -->
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Lora:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Estilos -->
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Lora:wght@400;500;700&display=swap" rel="stylesheet">  <!-- Estilos -->  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-addons.css">
+  <link rel="stylesheet" href="ms-badge-inline.css">
+  <link rel="stylesheet" href="section-images.css">
+  <link rel="stylesheet" href="carousel-responsive.css">
+  <link rel="stylesheet" href="mobile-header.css">
+  <link rel="stylesheet" href="diagram-styles.css">
   
-  <!-- Script para preload de recursos críticos -->
-  <script>
-    // Preload de imagens críticas para evitar flash de conteúdo não carregado
+  <!-- Script para preload de recursos críticos --><script>
+    // Preload of critical images to avoid flash of unloaded content
     const preloadImages = [
       'public/images/logo-hh.png',
-      'public/images/hero-bg-fallback.png',
-      'public/images/logo-microsoft-colors.png'
+      'public/images/logo-microsoft-colors.png',
+      'public/images/diagrams/hh-diagram-1.png',
+      'public/images/diagrams/hh-diagram-3.png',
+      'public/images/diagrams/hh-diagram-5.png'
     ];
     preloadImages.forEach(src => {
       const img = new Image();
@@ -94,9 +97,8 @@
     });
   </script>
 </head>
-<body>
-  <!-- Skip to content link para acessibilidade -->
-  <a href="#main-content" class="skip-to-content visually-hidden">Pular para o conteúdo principal</a>
+<body>  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content visually-hidden">Skip to main content</a>
   
   <!-- Animação de Introdução -->
   <div id="intro-animation" class="intro-animation" aria-hidden="true">
@@ -119,33 +121,17 @@
         <span id="typed-content"></span> <span class="cursor"></span>
       </div>
     </div>
-  </div>
-  <!-- Header / Navigation -->
+  </div>  <!-- Header / Navigation -->
   <header class="header">
     <div class="container">
       <div class="header-wrapper">
-        <a href="#hero" class="logo" aria-label="HEALTH/HEALTH Início">
+        <a href="#hero" class="logo" aria-label="HEALTH/HEALTH Home">
           <img src="public/images/logo-hh.png" alt="HEALTH/HEALTH Logo" class="logo-image" width="40" height="40"> 
           <span class="logo-text">HEALTH/HEALTH</span>
         </a>
         
-        <!-- Navegação Principal -->
-        <nav class="navigation" aria-label="Navegação principal" id="navigation-menu">
-          <a href="#oque-e" class="nav-link">O Que É</a>
-          <a href="#diferenciais" class="nav-link">Diferenciais</a>
-          <a href="#credenciais" class="nav-link">Credenciais</a> 
-        </nav>
-        
-        <div class="header-actions">
-          <a href="#footer-contato" class="btn btn-outline btn-sm">CONTATO</a> 
-        </div>
-      </div>
-    </div>
-    
-    <!-- Microsoft Badge -->
-    <div class="ms-badge">
-      <div class="container">
-        <div class="ms-badge-content">
+        <!-- Microsoft Badge - Moved to the right side of the header -->
+        <div class="ms-badge-inline">
           <span class="partner-badge">Proud Member</span> 
           <img src="public/images/logo-microsoft-colors.png" alt="Microsoft for Startups Founders Hub" class="ms-logo" width="20" height="20"> 
           <span class="ms-text">Microsoft for Startups Founders Hub</span>
@@ -162,33 +148,35 @@
         <div class="hero-content">
           <h1 class="hero-title" data-animate="fade-up">An AI-clinician built for care, not bureaucracy.</h1>
           <p class="hero-subtitle" data-animate="fade-up" data-animate-delay="100">HEALTH/HEALTH is a dimensional AI platform for psychiatry, powered by symbolic language and a proprietary runtime. It delivers diagnostic clarity and therapeutic precision in real time.</p>
-          
-          <div class="hero-actions" data-animate="fade-up" data-animate-delay="200">
+            <div class="hero-actions" data-animate="fade-up" data-animate-delay="200">
             <!-- Audio Dropzone -->
             <div class="audio-dropzone">
               <div class="dropzone-content">
-                <p class="dropzone-title">Tente agora: Envie um áudio de até 10 minutos</p>
-                <p class="dropzone-description">Veja o que o HEALTH/HEALTH pode extrair da sua narrativa</p>
+                <p class="dropzone-title">Try now: Upload an audio up to 10 minutes</p>
+                <p class="dropzone-description">See what HEALTH/HEALTH can extract from your narrative</p>
               </div>
-              <a href="https://forms.microsoft.com/SUA_URL_AQUI" class="btn btn-primary btn-large">
-                Enviar Áudio
+              <a href="https://forms.microsoft.com/YOUR_URL_HERE" class="btn btn-primary btn-large">
+                Upload Audio
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 15.5c2.21 0 4-1.79 4-4V6c0-2.21-1.79-4-4-4S8 3.79 8 6v5.5c0 2.21 1.79 4 4 4z"/>
                   <path d="M19.65 9.65v1.7c0 4.22-3.43 7.65-7.65 7.65-4.22 0-7.65-3.43-7.65-7.65v-1.7"/>
                   <path d="M12 19v3M8 22h8"/>
                 </svg>
-              </a>
-            </div>
+              </a>            </div>
           </div>
         </div>
       </div>
-    </section>    <!-- O que é HEALTH/HEALTH Section -->
-    <section id="oque-e" class="content-section section-what-is">
+    </section>    <!-- What is HEALTH/HEALTH Section -->
+    <section id="what-is" class="content-section section-what-is">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">O que é HEALTH/HEALTH?</h2>
-        <div class="section-intro-text" data-animate="fade-up" data-animate-delay="100">
-          <p>HEALTH/HEALTH é uma solução/app revolucionária que acompanha o profissional médico durante os atendimentos, assumindo a complexa tarefa de lidar com todas as anotações, burocracias, lembretes e a gestão da informação clínica. Nossa plataforma permite que o médico se dedique integralmente à interação humana, à escuta ativa e à tomada de decisão focada no paciente.</p>
-          <p>Construído sobre uma base científica sólida, o framework VINTRA encapsula um vasto compêndio de referências técnicas, acadêmicas e científicas, assegurando validação matemática e rigor metodológico. A potência do HEALTH/HEALTH é impulsionada por nossa tecnologia proprietária: o runtime euleriano IREAJE.CLOUD, otimizado para operar com nossas Domain Specific Languages (DSLs) especializadas (.aje, .ire, .e), garantindo uma análise dimensional e intervenções com precisão e adaptabilidade sem precedentes na psiquiatria.</p>
+        <h2 class="section-title" data-animate="fade-up">What is HEALTH/HEALTH?</h2>        <div class="section-content-wrapper">          <div class="section-image-container" data-animate="fade-up" data-animate-delay="50">
+            <img src="public/images/diagrams/hh-diagram-1.png" alt="HEALTH/HEALTH AI Platform" class="feature-image">
+            <p class="image-caption">HEALTH/HEALTH Platform Architecture Overview</p>
+          </div>
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="100">
+            <p>HEALTH/HEALTH is a revolutionary solution/app that accompanies healthcare professionals during consultations, taking on the complex task of handling all notes, paperwork, reminders, and clinical information management. Our platform allows doctors to fully dedicate themselves to human interaction, active listening, and patient-focused decision making.</p>
+            <p>Built on a solid scientific foundation, the VINTRA framework encapsulates a vast compendium of technical, academic, and scientific references, ensuring mathematical validation and methodological rigor. HEALTH/HEALTH's power is driven by our proprietary technology: the IREAJE.CLOUD Eulerian runtime, optimized to operate with our specialized Domain Specific Languages (.aje, .ire, .e), ensuring dimensional analysis and interventions with unprecedented precision and adaptability in psychiatry.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -196,15 +184,15 @@
     <!-- Features Section -->
     <section id="features" class="content-section features-section">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">Principais Capacidades do HEALTH/HEALTH</h2>
+        <h2 class="section-title" data-animate="fade-up">HEALTH/HEALTH Key Capabilities</h2>
         <div class="features-grid" data-animate="fade-up" data-animate-delay="100">
           <!-- Feature Card 1 -->
           <div class="feature-card" data-animate="fade-up" data-animate-delay="150">
             <div class="feature-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2V8M12 16V22M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Captura dimensional da consulta</h3>
-            <p>Registra a conversa clínica em tempo real, extraindo padrões linguísticos e transformando-os em vetores dimensionais que mapeiam o estado mental do paciente.</p>
+            <h3>Dimensional Consultation Capture</h3>
+            <p>Records the clinical conversation in real-time, extracting linguistic patterns and transforming them into dimensional vectors that map the patient's mental state.</p>
           </div>
           
           <!-- Feature Card 2 -->
@@ -212,17 +200,16 @@
             <div class="feature-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3V21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 14L11 10L15 14L21 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Substituição do modelo categorial</h3>
-            <p>Supera limitações diagnósticas tradicionais com uma abordagem vetorial quantitativa nas dimensões emocionais, cognitivas e de autonomia do paciente.</p>
+            <h3>Categorical Model Replacement</h3>
+            <p>Overcomes traditional diagnostic limitations with a quantitative vector approach in the emotional, cognitive, and autonomy dimensions of the patient.</p>
           </div>
-          
-          <!-- Feature Card 3 -->
+            <!-- Feature Card 3 -->
           <div class="feature-card" data-animate="fade-up" data-animate-delay="250">
             <div class="feature-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8V16M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Visualização trajetorial</h3>
-            <p>Representa o estado mental em coordenadas dimensionais precisas, permitindo uma visualização da evolução clínica ao longo do tempo e identificação de pontos críticos.</p>
+            <h3>Trajectory Visualization</h3>
+            <p>Represents mental state in precise dimensional coordinates, enabling visualization of clinical evolution over time and identification of critical points.</p>
           </div>
           
           <!-- Feature Card 4 -->
@@ -230,8 +217,8 @@
             <div class="feature-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Documentação SOAP-VINTRA</h3>
-            <p>Adapta o formato SOAP tradicional para um modelo dimensional, enriquecendo a transcrição com marcadores fenomenológicos e posicionamento vetorial nas 10 dimensões.</p>
+            <h3>SOAP-VINTRA Documentation</h3>
+            <p>Adapts the traditional SOAP format to a dimensional model, enriching transcription with phenomenological markers and vector positioning across 10 dimensions.</p>
           </div>
           
           <!-- Feature Card 5 -->
@@ -239,138 +226,199 @@
             <div class="feature-icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 17H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Intervenção dimensional</h3>
-            <p>Projeta trajetórias terapêuticas baseadas em alvos dimensionais prioritários, incorporando mecanismos de monitoramento contínuo e feedback nos pontos de intervenção.</p>
+            <h3>Dimensional Intervention</h3>
+            <p>Projects therapeutic trajectories based on priority dimensional targets, incorporating continuous monitoring mechanisms and feedback at intervention points.</p>
           </div>
         </div>
       </div>
-    </section>    <!-- Para Quem Section -->
-    <section id="para-quem" class="content-section alt-bg">
+    </section>    <!-- For Whom Section -->
+    <section id="who-for" class="content-section alt-bg">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">Para Quem é HEALTH/HEALTH?</h2>
+        <h2 class="section-title" data-animate="fade-up">Who is HEALTH/HEALTH For?</h2>
         <p class="section-description text-center" data-animate="fade-up" data-animate-delay="100">
-          Nossa plataforma foi concebida para empoderar um espectro de atores no cenário da saúde mental e pesquisa, oferecendo ferramentas de precisão e eficiência.
+          Our platform was conceived to empower a spectrum of actors in the mental health and research landscape, offering precision and efficiency tools.
         </p>
         
-        <div class="audience-grid" data-animate="fade-up" data-animate-delay="150">
-          <!-- Audience Card 1 -->
-          <div class="audience-card" data-animate="fade-up" data-animate-delay="200">
-            <h3 class="audience-title">Profissionais da Saúde Mental</h3>
-            <p>Psiquiatras, psicólogos e terapeutas que buscam otimizar a prática clínica, reduzir a carga administrativa e aprofundar a compreensão dimensional de seus pacientes.</p>
+        <div class="section-content-wrapper image-right">
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="audience-grid" data-animate="fade-up" data-animate-delay="150">
+              <!-- Audience Card 1 -->
+              <div class="audience-card" data-animate="fade-up" data-animate-delay="200">
+                <h3 class="audience-title">Mental Health Professionals</h3>
+                <p>Psychiatrists, psychologists, and therapists looking to optimize clinical practice, reduce administrative burden, and deepen dimensional understanding of their patients.</p>
+              </div>
+            </div>
+          </div>          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-6.png" alt="HEALTH/HEALTH for Mental Health Professionals" class="feature-image">
+            <p class="image-caption">Clinical Practice Enhancement Model</p>
+          </div></div>
+          <div class="section-content-wrapper">          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-7.png" alt="HEALTH/HEALTH for Healthcare Institutions" class="feature-image">
+            <p class="image-caption">Institutional Implementation Framework</p>
           </div>
-          
-          <!-- Audience Card 2 -->
-          <div class="audience-card" data-animate="fade-up" data-animate-delay="250">
-            <h3 class="audience-title">Clínicas e Instituições de Saúde</h3>
-            <p>Organizações que visam implementar sistemas de documentação e análise de vanguarda, melhorando a qualidade do cuidado e a eficiência operacional.</p>
-          </div>
-          
-          <!-- Audience Card 3 -->
-          <div class="audience-card" data-animate="fade-up" data-animate-delay="300">
-            <h3 class="audience-title">Gestores Públicos e de Sistemas de Saúde</h3>
-            <p>Decisores que necessitam de dados estruturados e de alta fidelidade para o planejamento estratégico, alocação de recursos e políticas de saúde mental baseadas em evidências.</p>
-          </div>
-          
-          <!-- Audience Card 4 -->
-          <div class="audience-card" data-animate="fade-up" data-animate-delay="350">
-            <h3 class="audience-title">Pesquisadores</h3>
-            <p>Cientistas e acadêmicos que podem se beneficiar de uma plataforma robusta para coleta, análise e visualização de dados dimensionais complexos em saúde mental.</p>
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="audience-grid" data-animate="fade-up" data-animate-delay="150">
+              <!-- Audience Card 2 -->
+              <div class="audience-card" data-animate="fade-up" data-animate-delay="250">
+                <h3 class="audience-title">Healthcare Clinics and Institutions</h3>
+                <p>Organizations aiming to implement cutting-edge documentation and analysis systems, improving quality of care and operational efficiency.</p>
+              </div>
+              
+              <!-- Audience Card 3 -->
+              <div class="audience-card" data-animate="fade-up" data-animate-delay="300">
+                <h3 class="audience-title">Public and Health System Managers</h3>
+                <p>Decision-makers who need structured, high-fidelity data for strategic planning, resource allocation, and evidence-based mental health policies.</p>
+              </div>
+              
+              <!-- Audience Card 4 -->
+              <div class="audience-card" data-animate="fade-up" data-animate-delay="350">
+                <h3 class="audience-title">Researchers</h3>
+                <p>Scientists and academics who can benefit from a robust platform for collecting, analyzing, and visualizing complex dimensional data in mental health.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Diferenciais Section -->
-    <section id="diferenciais" class="content-section">
+    <!-- Differentiators Section -->
+    <section id="differentiators" class="content-section">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">O Que Nos Diferencia?</h2>
-        <div class="features-grid" data-animate="fade-up" data-animate-delay="100">
-          <!-- Diferencial Card 1 -->
-          <div class="feature-card" data-animate="fade-up" data-animate-delay="150">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M21 3L3 21M12 4.5v15M4.5 12h15"/></svg>
+        <h2 class="section-title" data-animate="fade-up">What Sets Us Apart?</h2>
+        <div class="section-content-wrapper image-right">
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="features-grid" data-animate="fade-up" data-animate-delay="100">
+              <!-- Differentiator Card 1 -->
+              <div class="feature-card" data-animate="fade-up" data-animate-delay="150">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M21 3L3 21M12 4.5v15M4.5 12h15"/></svg>
+                </div>
+                <h3>Dimensional Diagnosis (10 Clinical Vectors)</h3>
+                <p>Our innovative approach surpasses categorical diagnoses, using a system of 10 clinical vectors for precise and multifaceted mapping of the patient's mental state.</p>
+              </div>
             </div>
-            <h3>Diagnóstico Dimensional (10 Vetores Clínicos)</h3>
-            <p>Nossa abordagem inovadora ultrapassa os diagnósticos categoriais, utilizando um sistema de 10 vetores clínicos para um mapeamento preciso e multifacetado do estado mental do paciente.</p>
+          </div>          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-3.png" alt="HEALTH/HEALTH Dimensional Diagnosis" class="feature-image">
+            <p class="image-caption">10-Vector Dimensional Analysis System</p>
           </div>
-          
-          <!-- Diferencial Card 2 -->
-          <div class="feature-card" data-animate="fade-up" data-animate-delay="200">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            </div>
-            <h3>Runtime Próprio com Linguagem .aje .ire .e</h3>
-            <p>Desenvolvemos o IREAJE.CLOUD, um runtime euleriano de alta performance, e linguagens simbólicas proprietárias (.aje, .ire, .e) para análise e processamento com capacidades únicas.</p>
+        </div>
+        
+        <div class="section-content-wrapper">          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-4.png" alt="HEALTH/HEALTH Proprietary Runtime" class="feature-image">
+            <p class="image-caption">IREAJE.CLOUD Runtime and Domain-Specific Languages</p>
           </div>
-          
-          <!-- Diferencial Card 3 -->
-          <div class="feature-card" data-animate="fade-up" data-animate-delay="250">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.1-2.8-2.8L7 14.3"/></svg>
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="features-grid" data-animate="fade-up" data-animate-delay="100">
+              <!-- Differentiator Card 2 -->
+              <div class="feature-card" data-animate="fade-up" data-animate-delay="200">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <h3>Proprietary Runtime with .aje .ire .e Languages</h3>
+                <p>We developed IREAJE.CLOUD, a high-performance Eulerian runtime, and proprietary symbolic languages (.aje, .ire, .e) for analysis and processing with unique capabilities.</p>
+              </div>
             </div>
-            <h3>Visualização Vetorial do Estado Mental</h3>
-            <p>Transformamos dados complexos em representações visuais dinâmicas e intuitivas do estado mental e sua evolução, facilitando o insight clínico e o acompanhamento terapêutico.</p>
+          </div>
+        </div>
+            <div class="section-content-wrapper image-right">
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="feature-card" data-animate="fade-up" data-animate-delay="250">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.1-2.8-2.8L7 14.3"/></svg>
+              </div>
+              <h3>Vector Visualization of Mental State</h3>
+              <p>We transform complex data into dynamic and intuitive visual representations of mental state and its evolution, facilitating clinical insight and therapeutic monitoring.</p>
+            </div>
+          </div>          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-5.png" alt="HEALTH/HEALTH Vector Visualization" class="feature-image">
+            <p class="image-caption">Mental State Trajectory Visualization</p>
           </div>
         </div>
       </div>
     </section>    <!-- Comparative Section (Desktop Only) -->
     <section id="comparison" class="comparison-section desktop-only">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">HEALTH/HEALTH vs. Soluções Existentes</h2>
+        <h2 class="section-title" data-animate="fade-up">HEALTH/HEALTH vs. Existing Solutions</h2>
         <p class="section-description text-center" data-animate="fade-up" data-animate-delay="100">
-          Veja como o HEALTH/HEALTH se posiciona em relação às ferramentas de documentação e análise clínica disponíveis. Nossa plataforma é desenhada para superar limitações inerentes e entregar valor clínico superior.
+          See how HEALTH/HEALTH positions itself in relation to available clinical documentation and analysis tools. Our platform is designed to overcome inherent limitations and deliver superior clinical value.
         </p>
 
         <div class="comparison-carousel" data-animate="fade-up" data-animate-delay="150">
           <div class="carousel-container">
             <div id="carousel-track" class="carousel-track">
-              <!-- Slides carregados dinamicamente via JavaScript -->
+              <!-- Slides loaded dynamically via JavaScript -->
             </div>
             
             <!-- Carousel Navigation -->
-            <button id="carousel-prev" class="carousel-arrow carousel-prev" aria-label="Anterior">
+            <button id="carousel-prev" class="carousel-arrow carousel-prev" aria-label="Previous">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             
-            <button id="carousel-next" class="carousel-arrow carousel-next" aria-label="Próximo">
+            <button id="carousel-next" class="carousel-arrow carousel-next" aria-label="Next">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
           
           <!-- Carousel Indicators -->
           <div id="carousel-indicators" class="carousel-indicators">
-            <!-- Indicators carregados dinamicamente via JavaScript -->
+            <!-- Indicators loaded dynamically via JavaScript -->
           </div>
         </div>
       </div>
-    </section>    <!-- Credenciais Section -->
-    <section id="credenciais" class="content-section alt-bg">
+    </section>    <!-- Credentials Section -->
+    <section id="credentials" class="content-section alt-bg">
       <div class="container">
-        <h2 class="section-title" data-animate="fade-up">Credenciais e Validação</h2>
-        <div class="credentials-grid" data-animate="fade-up" data-animate-delay="100">
-          <!-- Credential Item 1 -->
-          <div class="credential-item" data-animate="fade-up" data-animate-delay="150">
-            <img src="public/images/logo-microsoft-colors.png" alt="Microsoft for Startups Logo" class="credential-logo" width="150" height="40">
-            <h3>Microsoft for Startups</h3>
-            <p>Selecionados para o prestigioso programa Microsoft for Startups Founders Hub, recebendo suporte técnico, recursos e validação da Microsoft.</p>
+        <h2 class="section-title" data-animate="fade-up">Credentials and Validation</h2>
+        
+        <div class="section-content-wrapper">          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-9.png" alt="HEALTH/HEALTH Microsoft Partnership" class="feature-image">
+            <p class="image-caption">Microsoft for Startups Founders Hub Integration</p>
           </div>
-          
-          <!-- Credential Item 2 -->
-          <div class="credential-item" data-animate="fade-up" data-animate-delay="200">
-            <div class="feature-icon" style="margin: 0 auto 1.5rem auto;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="credentials-grid" data-animate="fade-up" data-animate-delay="100">
+              <!-- Credential Item 1 -->
+              <div class="credential-item" data-animate="fade-up" data-animate-delay="150">
+                <img src="public/images/logo-microsoft-colors.png" alt="Microsoft for Startups Logo" class="credential-logo" width="150" height="40">
+                <h3>Microsoft for Startups</h3>
+                <p>Selected for the prestigious Microsoft for Startups Founders Hub program, receiving technical support, resources, and validation from Microsoft.</p>
+              </div>
             </div>
-            <h3>Pesquisa Científica Própria em Andamento</h3>
-            <p>Nossa plataforma é fundamentada no framework VINTRA, fruto de extensa pesquisa científica própria, com estudos e publicações em andamento para validação contínua.</p>
           </div>
-          
-          <!-- Credential Item 3 -->
-          <div class="credential-item" data-animate="fade-up" data-animate-delay="250">
-            <div class="feature-icon" style="margin: 0 auto 1.5rem auto;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="8" y2="6"></line><line x1="12" y1="6" x2="12" y2="6"></line><line x1="16" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line><line x1="16" y1="18" x2="16" y2="18"></line></svg>
+        </div>
+        
+        <div class="section-content-wrapper image-right">
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="credentials-grid" data-animate="fade-up" data-animate-delay="100">
+              <!-- Credential Item 2 -->
+              <div class="credential-item" data-animate="fade-up" data-animate-delay="200">
+                <div class="feature-icon" style="margin: 0 auto 1.5rem auto;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h3>Ongoing Scientific Research</h3>
+                <p>Our platform is based on the VINTRA framework, the result of extensive scientific research, with ongoing studies and publications for continuous validation.</p>
+              </div>
             </div>
-            <h3>Arquitetura Pronta para GPU (NVIDIA-ready)</h3>
-            <p>Nossa infraestrutura IREAJE.CLOUD é otimizada para computação de alta performance, pronta para GPUs NVIDIA, essencial para os algoritmos de IA e processamento dimensional.</p>
+          </div>          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-10.png" alt="HEALTH/HEALTH Scientific Research" class="feature-image">
+            <p class="image-caption">VINTRA Framework Scientific Foundation</p>
+          </div>
+        </div>
+        
+        <div class="section-content-wrapper">          <div class="section-image-container" data-animate="fade-up" data-animate-delay="100">
+            <img src="public/images/diagrams/hh-diagram-8.png" alt="HEALTH/HEALTH GPU Architecture" class="feature-image">
+            <p class="image-caption">High-Performance Computing Infrastructure</p>
+          </div>
+          <div class="section-intro-text" data-animate="fade-up" data-animate-delay="50">
+            <div class="credentials-grid" data-animate="fade-up" data-animate-delay="100">
+              <!-- Credential Item 3 -->
+              <div class="credential-item" data-animate="fade-up" data-animate-delay="250">
+                <div class="feature-icon" style="margin: 0 auto 1.5rem auto;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="8" y2="6"></line><line x1="12" y1="6" x2="12" y2="6"></line><line x1="16" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line><line x1="16" y1="18" x2="16" y2="18"></line></svg>
+                </div>
+                <h3>GPU-Ready Architecture (NVIDIA-ready)</h3>
+                <p>Our IREAJE.CLOUD infrastructure is optimized for high-performance computing, ready for NVIDIA GPUs, essential for AI algorithms and dimensional processing.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -379,11 +427,10 @@
     <!-- CTA Final Section -->
     <section class="cta-section">
       <div class="container">
-        <div class="cta-content" data-animate="fade-up">
-          <h2>HEALTH/HEALTH não é uma IA de reunião. É uma extensão do seu raciocínio clínico.</h2>
-          <p>Junte-se aos profissionais de saúde que estão transformando sua prática clínica com documentação automática e inteligente. Nossa plataforma reduz o tempo gasto em tarefas administrativas, permitindo que você se concentre no que realmente importa: o cuidado com seus pacientes.</p>
-          <a href="https://forms.microsoft.com/SUA_URL_AQUI" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">
-            SOLICITAR DEMONSTRAÇÃO
+        <div class="cta-content" data-animate="fade-up">          <h2>HEALTH/HEALTH is not a meeting AI. It's an extension of your clinical reasoning.</h2>
+          <p>Join healthcare professionals who are transforming their clinical practice with automatic and intelligent documentation. Our platform reduces time spent on administrative tasks, allowing you to focus on what really matters: caring for your patients.</p>
+          <a href="https://forms.microsoft.com/YOUR_URL_HERE" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">
+            REQUEST A DEMO
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
@@ -391,57 +438,57 @@
     </section>  </main>
 
   <!-- Footer -->
-  <footer class="footer" id="footer-contato">
+  <footer class="footer" id="footer-contact">
     <div class="container">
       <div class="footer-content">
         <!-- Footer Logo Area -->
         <div class="footer-logo-area">
           <div class="footer-logo">HEALTH/HEALTH</div>
-          <p class="footer-tagline">Psiquiatria Vetorial Dimensional. Cuidado Ampliado pela IA.</p>
-          <p class="footer-domain">healthhealth.io — uma ferramenta IREAJE.CLOUD</p>
+          <p class="footer-tagline">Dimensional Vector Psychiatry. Care Enhanced by AI.</p>
+          <p class="footer-domain">healthhealth.io — an IREAJE.CLOUD tool</p>
         </div>
         
         <!-- Footer Contact Info -->
         <div class="footer-contact-info">
-          <h4>Contato Direto</h4>
+          <h4>Direct Contact</h4>
           <p><a href="mailto:founder@healthhealth.io">founder@healthhealth.io</a></p>
           <p><a href="mailto:health.health@ireaje.cloud">health.health@ireaje.cloud</a></p>
         </div>
         
         <!-- Footer Quick Links -->
-        <div class="footer-quick-links">
-          <h4>Navegação</h4>
-          <a href="#oque-e" class="footer-link">O Que É HEALTH/HEALTH</a>
-          <a href="#diferenciais" class="footer-link">Nossos Diferenciais</a>
-          <a href="#credenciais" class="footer-link">Credenciais</a>
+        <div class="footer-quick-links">          <h4>Navigation</h4>
+          <a href="#what-is" class="footer-link">What is HEALTH/HEALTH</a>
+          <a href="#differentiators" class="footer-link">Our Differentiators</a>
+          <a href="#credentials" class="footer-link">Credentials</a>
         </div>
         
         <!-- Footer External Links -->
         <div class="footer-external-links">
-          <h4>Recursos Adicionais</h4>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">PDF Institucional (em breve)</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">Pitch Deck (em breve)</a>
+          <h4>Additional Resources</h4>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">Institutional PDF (coming soon)</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">Pitch Deck (coming soon)</a>
           <a href="https://github.com/myselfgus/hh-landing" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn (em breve)</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn (coming soon)</a>
         </div>
       </div>
       
       <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <p>&copy; <span id="currentYear"></span> HEALTH/HEALTH. Todos os direitos reservados.</p>
+        <p>&copy; <span id="currentYear"></span> HEALTH/HEALTH. All rights reserved.</p>
         <div class="footer-legal-links">
-          <a href="#" class="footer-link-sm">Política de Privacidade</a>
-          <a href="#" class="footer-link-sm">Termos de Uso</a>
+          <a href="#" class="footer-link-sm">Privacy Policy</a>
+          <a href="#" class="footer-link-sm">Terms of Use</a>
         </div>
       </div>
     </div>
-  </footer>
-  <!-- Scripts -->
+  </footer>  <!-- Scripts -->
   <script src="script.js"></script>
+  <script src="enhanced-responsive.js"></script>
+  <script src="diagram-enhancements.js"></script>
   
-  <!-- Script para detectar preferência por movimento reduzido -->
+  <!-- Script to detect reduced motion preference -->
   <script>
-    // Detecta se o usuário prefere movimento reduzido
+    // Detect if the user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       document.documentElement.classList.add('reduced-motion');

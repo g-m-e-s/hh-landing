@@ -99,18 +99,35 @@ function playIntroAnimation() {
   }, 800);
 }
 
-// Type text character by character
+// Type text character by character with improved timing
 function typeText(text) {
   let i = 0;
   typedContent.textContent = '';
-  const typingInterval = setInterval(() => {
+  
+  // Variable timing makes typing feel more natural
+  const getTypeDelay = () => {
+    // Add slight randomness to typing speed
+    const baseDelay = 80;
+    const variance = 20;
+    return baseDelay + Math.floor(Math.random() * variance);
+  };
+  
+  // Special delay for spacing
+  const getCharDelay = (char) => {
+    if (char === ' ' || char === '/') return 150; // Pause slightly on spaces and slashes
+    return getTypeDelay();
+  };
+  
+  const typeNextChar = () => {
     if (i < text.length) {
-      typedContent.textContent += text.charAt(i);
+      const char = text.charAt(i);
+      typedContent.textContent += char;
       i++;
-    } else {
-      clearInterval(typingInterval);
+      setTimeout(typeNextChar, getCharDelay(char));
     }
-  }, 100);
+  };
+  
+  typeNextChar();
 }
 
 // Complete intro animation and show main content
@@ -127,17 +144,57 @@ function completeIntroAnimation() {
   }, 800);
 }
 
-// Animate metric bars when they come into view
+// Animate metric bars when they come into view with enhanced animations
 function animateMetricBars() {
+  // First reset all bars to zero width
+  metricBars.forEach(bar => {
+    bar.style.width = '0%';
+    bar.style.transition = 'none';
+  });
+  
+  // Force reflow to ensure reset takes effect
+  void document.body.offsetHeight;
+  
   setTimeout(() => {
     metricBars.forEach((bar, index) => {
+      // Set transition back on with staggered delays
+      bar.style.transition = `width 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)`;
+      
+      // Staggered animation starting points
       setTimeout(() => {
+        // Add shimmer effect as the bar fills
+        bar.classList.add('animated');
+        
+        // Set the correct width
         if (index === 0) bar.style.width = '22%';
         if (index === 1) bar.style.width = '94%';
         if (index === 2) bar.style.width = '87%';
-      }, index * 500);
+        
+        // Update the value counter alongside the bar
+        const metricValue = bar.closest('.metric').querySelector('.metric-value');
+        const targetValue = parseInt(metricValue.textContent);
+        animateCounter(metricValue, 0, targetValue, 1200);
+      }, index * 350);
     });
   }, 300);
+}
+
+// Animate counter from start to end value
+function animateCounter(element, start, end, duration) {
+  // Check if we're animating NPS (not percentage)
+  const isNPS = element.textContent.indexOf('%') === -1;
+  let startTimestamp = null;
+  
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const value = Math.floor(progress * (end - start) + start);
+    element.textContent = value + (isNPS ? '' : '%');
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
 }
 
 // Handle scroll events for header styling and animations
@@ -206,23 +263,79 @@ function toggleMobileMenu() {
     }
 
     // Initialize comparison carousel
-    function initCarousel() {
-      // Create slides
-      createCarouselSlides();
-
-      // Create indicators
-      createCarouselIndicators();
-
-      // Initial slide
-      updateCarousel();
-
-      // Event listeners
-      carouselPrev.addEventListener('click', goToPrevSlide);
-      carouselNext.addEventListener('click', goToNextSlide);
-
-      // Auto play carousel
-      startCarouselAutoPlay();
+function initCarousel() {
+  // Re-acquire references to carousel elements to ensure they exist
+  try {
+    const trackElement = document.getElementById('carousel-track');
+    const prevElement = document.getElementById('carousel-prev');
+    const nextElement = document.getElementById('carousel-next');
+    const indicatorsElement = document.getElementById('carousel-indicators');
+    
+    // If any elements are missing, create a more helpful error message
+    if (!trackElement || !prevElement || !nextElement || !indicatorsElement) {
+      const missingElements = [];
+      if (!trackElement) missingElements.push('carousel-track');
+      if (!prevElement) missingElements.push('carousel-prev');
+      if (!nextElement) missingElements.push('carousel-next');
+      if (!indicatorsElement) missingElements.push('carousel-indicators');
+      
+      console.error(`Carousel initialization failed. Missing elements: ${missingElements.join(', ')}`);
+      
+      // Re-create missing elements if possible
+      if (!trackElement && indicatorsElement) {
+        console.warn('Attempting to fix missing carousel track...');
+        const comparisonSection = document.querySelector('.comparison-section');
+        if (comparisonSection) {
+          const container = comparisonSection.querySelector('.carousel-container');
+          if (container && !container.querySelector('#carousel-track')) {
+            const newTrack = document.createElement('div');
+            newTrack.id = 'carousel-track';
+            newTrack.className = 'carousel-track';
+            container.appendChild(newTrack);
+            console.info('Created missing carousel track element');
+          }
+        }
+      }
+      
+      // Set global references for use in other functions
+      carouselTrack = document.getElementById('carousel-track');
+      carouselPrev = document.getElementById('carousel-prev');
+      carouselNext = document.getElementById('carousel-next');
+      carouselIndicators = document.getElementById('carousel-indicators');
+    } else {
+      // Update global references
+      carouselTrack = trackElement;
+      carouselPrev = prevElement;
+      carouselNext = nextElement;
+      carouselIndicators = indicatorsElement;
     }
+    
+    // Final check before proceeding
+    if (!carouselTrack || !carouselPrev || !carouselNext || !carouselIndicators) {
+      console.error('Could not initialize carousel - missing elements');
+      return;
+    }
+  } catch (error) {
+    console.error('Error initializing carousel:', error);
+    return;
+  }
+  
+  // Create slides
+  createCarouselSlides();
+
+  // Create indicators
+  createCarouselIndicators();
+
+  // Initial slide
+  updateCarousel();
+
+  // Event listeners
+  carouselPrev.addEventListener('click', goToPrevSlide);
+  carouselNext.addEventListener('click', goToNextSlide);
+
+  // Auto play carousel
+  startCarouselAutoPlay();
+}
 
     // Auto play carousel function
     function startCarouselAutoPlay() {
@@ -455,55 +568,92 @@ function toggleMobileMenu() {
       });
     }
 
-    // Add animation to feature cards
-    function initFeatureEffects() {
-      const featureCards = document.querySelectorAll('.feature-card');
-      
-      // Set initial state
-      featureCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      });
-      
-      // Add hover effects
-      featureCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          card.style.transform = 'translateY(-5px)';
-          card.style.boxShadow = '0 12px 30px rgba(10, 37, 64, 0.12)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'translateY(0)';
-          card.style.boxShadow = '';
-        });
-      });
-    }
+    // Add animation to feature cards with staggered reveal
+function initFeatureEffects() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    // Set initial state
+    featureCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      card.style.transitionDelay = `${index * 0.15}s`;
+    });
+    
+    // Function to check if element is in viewport
+    const isInViewport = (element) => {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+      rect.bottom >= 0
+    );
+    };
+    
+    // Function to reveal cards when scrolled into view
+    const revealCards = () => {
+    featureCards.forEach(card => {
+      if (isInViewport(card)) {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }
+    });
+  };
+  
+  // Add hover effects with highlight glow
+  featureCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-8px)';
+      card.style.boxShadow = '0 15px 35px rgba(10, 37, 64, 0.15), 0 0 10px rgba(77, 91, 206, 0.1)';
+      card.style.borderColor = 'var(--color-accent)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+      card.style.boxShadow = '';
+      card.style.borderColor = '';
+    });
+  });
+  
+  // Initial check on load
+  revealCards();
+  
+  // Add scroll event listener for reveal
+  window.addEventListener('scroll', revealCards);
+}
 
     // Initialize all functionality
-    function init() {
-      // Play intro animation
-      playIntroAnimation();
+function init() {
+  // Play intro animation
+  playIntroAnimation();
 
-      // Set up scroll event listener
-      window.addEventListener('scroll', handleScroll);
+  // Set up scroll event listener
+  window.addEventListener('scroll', handleScroll);
 
-      // Set up mobile menu toggle
-      mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-      closeMobileMenuOnClick();
+  // Set up mobile menu toggle if it exists
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    closeMobileMenuOnClick();
+  }
 
-      // Initialize carousel
-      initCarousel();
+  // Initialize carousel with a slight delay to ensure DOM is fully ready
+  setTimeout(() => {
+    initCarousel();
+  }, 500);
 
-      // Initialize tabs
-      initTabs();
-      
-      // Initialize smooth scrolling
-      initSmoothScroll();
-      
-      // Initialize feature card effects
-      initFeatureEffects();
-    }
+  // Initialize tabs
+  initTabs();
+  
+  // Initialize smooth scrolling
+  initSmoothScroll();
+  
+  // Initialize feature card effects
+  initFeatureEffects();
+  
+  // Ensure metrics animate when in view
+  setTimeout(() => {
+    animateMetricBars();
+  }, 1000);
+}
 
     // Start everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', init);

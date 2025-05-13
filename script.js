@@ -168,6 +168,17 @@ function handleScroll() {
   });
 }
 
+// Header shrink on scroll
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.refined-fixed-header');
+  if (!header) return;
+  if (window.scrollY > 10) {
+    header.classList.add('shrink');
+  } else {
+    header.classList.remove('shrink');
+  }
+});
+
 // Handle mobile menu
 function toggleMobileMenu() {
   mobileMenu.classList.toggle('active');

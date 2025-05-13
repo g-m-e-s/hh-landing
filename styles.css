@@ -405,6 +405,7 @@ h4 {
   justify-content: flex-end;
   gap: var(--space-sm);
 }
+<<<<<<< HEAD
 .partner-badge {
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -422,6 +423,33 @@ h4 {
 /* -------------------------------------------------------------------------- */
 /* 4. Seção Hero */
 /* -------------------------------------------------------------------------- */
+=======
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-actions, .ms-badge-content {
+    display: none;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .logo-image {
+    height: 2rem;
+  }
+
+  .header {
+    box-shadow: var(--shadow-md);
+  }
+
+  .header-wrapper {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Hero Section */
+>>>>>>> 100c8135914e8c4e38de82a98eeb1bc6581053d3
 .hero-section {
   position: relative;
   min-height: 100vh; /* Ocupa toda a altura da viewport */

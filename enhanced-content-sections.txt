@@ -1,0 +1,72 @@
+/* 5. Seções de Conteúdo Geral - Enhanced */
+/* -------------------------------------------------------------------------- */
+.content-section {
+  padding-top: var(--space-xxxl);
+  padding-bottom: var(--space-xxxl);
+  position: relative; 
+  overflow: hidden;
+}
+
+.content-section.alt-bg {
+  background: linear-gradient(to bottom, var(--color-background) 0%, var(--color-background-alt) 15%, var(--color-background-alt) 85%, var(--color-background) 100%);
+  border-top: 1px solid var(--color-border-soft);
+  border-bottom: 1px solid var(--color-border-soft);
+  position: relative;
+}
+
+.content-section.alt-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 10% 30%, rgba(0, 178, 201, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 90% 70%, rgba(30, 58, 138, 0.03) 0%, transparent 50%);
+  opacity: 0.8;
+  z-index: 0;
+}
+
+.content-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-intro-text, .section-description {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--space-xl);
+}
+
+.section-intro-text p + p {
+    margin-top: var(--space-md);
+}
+
+.list-styled { 
+  list-style: none;
+  padding-left: 0;
+  max-width: 750px;
+  margin: var(--space-lg) auto 0 auto;
+}
+
+.list-styled li {
+  padding-left: var(--space-xl);
+  position: relative;
+  margin-bottom: var(--space-md);
+  font-size: 1.0625rem; /* 17px */
+}
+
+.list-styled li::before { 
+  content: '✓'; 
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: var(--color-primary-accent);
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  line-height: 1;
+}
